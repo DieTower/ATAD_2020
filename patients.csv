@@ -1025,7 +1025,7 @@ patient_id;sex;birth_year;country;province;infection_case;infected_by;confirmed_
 2000000036;male;1985;Korea;Gyeonggi-do;etc;;24/02/2020;;;isolated
 2000000037;male;1986;Korea;Gyeonggi-do;Shincheonji Church;;25/02/2020;;;isolated
 2000000038;female;1985;Korea;Gyeonggi-do;Shincheonji Church;;24/02/2020;;;isolated
-2000000039;male;1984;Mongolia;Gyeonggi-do;etc;;25/02/2020;;2020-02-25;deceased
+2000000039;male;1984;Mongolia;Gyeonggi-do;etc;;25/02/2020;;25/02/2020;deceased
 2000000040;female;1964;Korea;Gyeonggi-do;etc;;26/02/2020;;;isolated
 2000000041;male;1984;Korea;Gyeonggi-do;etc;;25/02/2020;;;isolated
 2000000042;male;1994;Korea;Gyeonggi-do;Shincheonji Church;;25/02/2020;;;isolated

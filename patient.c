@@ -87,10 +87,10 @@ void patientPrint(PtPatient p) {
 
     } else {
 
-        printf("%-4ld | %-6s | %-4d | %-10s \t| %-10s \t| %-10s \t| %ld | ", p->id, p->sex, p->birthYear, p->country, p->region, p->infectionReason, p->infectedBy);
-        printf("%02d-%02d-%-4d | ", p->confirmedDate->day, p->confirmedDate->month, p->confirmedDate->year);
-        printf("%02d-%02d-%-4d | ", p->releasedDate->day, p->releasedDate->month, p->releasedDate->year);
-        printf("%02d-%02d-%-4d | ", p->deceasedDate->day, p->deceasedDate->month, p->deceasedDate->year);
+        printf("%-4ld | %-6s | %-4d | %-10s \t| %-15s \t| %-25s \t\t| %-10ld \t| ", p->id, p->sex, p->birthYear, p->country, p->region, p->infectionReason, p->infectedBy);
+        printf("%02d-%02d-%-4.04d | ", p->confirmedDate->day, p->confirmedDate->month, p->confirmedDate->year);
+        printf("%02d-%02d-%-4.04d | ", p->releasedDate->day, p->releasedDate->month, p->releasedDate->year);
+        printf("%02d-%02d-%-4.04d | ", p->deceasedDate->day, p->deceasedDate->month, p->deceasedDate->year);
         printf("%s\n", p->status);
     }
 

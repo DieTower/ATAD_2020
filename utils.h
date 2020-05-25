@@ -7,7 +7,7 @@
  * 
  */
 
-// #include "list.h"
+#include "list.h"
 
 /**
  * @brief Put every char in one char array in lowercase
@@ -23,12 +23,20 @@ void lowerCase(char *str);
  */
 void upperCase(char *str);
 
+/**
+ * @brief Split a "string"(char array)
+ * 
+ * @param string 
+ * @param nFields 
+ * @param delim 
+ * @return char** 
+ */
 char** split(char *string, int nFields, const char *delim);
 
-// /**
-//  * @brief Import a file
-//  * 
-//  * @param filename 
-//  * @param listKR 
-//  */
-// void importKahootReportsFromFile(char * filename, PtList *listKR);
+/**
+ * @brief Populate a patient list 
+ * 
+ * @param filename 
+ * @param listPatient 
+ */
+void importPatientsFromFile(char * filename, PtList *listPatient);

@@ -1,8 +1,8 @@
 ﻿/* PROJETO  ATAD 2019-20
 * Identificacao dos Alunos:
 *
-*      Numero: ######### | Nome: ###############################
-*      Numero: ######### | Nome: ###############################
+*      Numero: 190221118 | Nome: Nicole Alexandra Martins Vieira
+*      Numero: 190221125 | Nome: Rodrigo Nave da Costa
 *
 */
 
@@ -12,8 +12,7 @@
 #include <locale.h>
 
 #include "utils.h"
-#include "patient.h"
-#include "region.h"
+//#include "list.h"
 
 typedef char String[255];
 
@@ -27,7 +26,17 @@ void printCommandsMenu();
 */
 int main(int argc, char** argv) {
 
+	// PtList kahootList = listCreate(1024);
+
+    // importKahootReportsFromFile("kahootReports.csv", &kahootList);
+    // listPrint(kahootList);
+    // PtListKahootReportDestroy(kahootList);
+
 	/* declaracao de variaveis */
+	PtList list = listCreate(1024);
+	importPatientsFromFile("patients.csv", &list);
+	listPrint(list);
+	listDestroy(&list);
 
 
 	/* interpretador de comandos */
