@@ -10,6 +10,7 @@
  */
 
 #include "map.h"
+#include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -89,10 +90,12 @@ int mapDestroy(PtMap *ptMap) {
 	PtMap map = *ptMap;
 
 	if (map == NULL) return MAP_NULL;
-
+	
 	PtNode current = map->header->next;
     while(current != map->trailer) {
         current = current->next;
+		free(current->prev->element.key);
+		free(current->prev->element.value);
         free(current->prev);
     }
 

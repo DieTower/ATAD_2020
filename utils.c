@@ -9,6 +9,7 @@
 
 #include "utils.h"
 #include "list.h"
+#include "map.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +38,7 @@ void upperCase(char *str) {
 };
 
 char** split(char *string, int nFields, const char *delim) {
-
+    
     char **tokens = (char**) malloc(sizeof(char*) * nFields);
 
     int index = 0;
@@ -65,6 +66,130 @@ char** split(char *string, int nFields, const char *delim) {
     return tokens;
 };
 
+int strCountChar(char *str, const char *c) {
+
+    int count = 0;
+
+    for(int i=0; i<strlen(str); i++) {
+        if(str[i] == c[0]) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+void splitJoin(char *str, const char *delim, char *res) {
+    
+    int nFields =  strCountChar(str, delim);
+
+    char field[nFields];
+    strcpy(field, str);
+
+    char **tokens = split(field, (nFields+1), delim);
+
+    for(int i=0; i<(nFields+1); i++) {
+        strcat(res, tokens[i]);
+    }
+
+    free(tokens);
+}
+
+MapKey keyCreate(char str[100]) {
+    MapKey key = (MapKey) calloc(1, sizeof(char[100]));
+
+    if(key == NULL) return NULL;
+
+    strcpy(key, str);
+
+    return key;
+}
+
+int keyDestroy(MapKey *c) {
+    
+    MapKey key = *c;
+
+    if(key == NULL) return REGION_NULL;
+
+    free(key);
+    *c = NULL;
+
+    return REGION_OK;
+}
+
+void importRegionsFromFile(char * filename, PtMap *mapRegion) {
+    FILE *f = NULL;
+
+    f = fopen(filename, "r");
+
+    if(f == NULL) {
+        printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
+        return;
+    }
+
+    char nextline[1024];
+
+    int countRegion = 0; // region count
+    bool firstLine = true;
+
+    while(fgets(nextline, sizeof(nextline), f)) {
+
+        if(strlen(nextline) < 1)
+            continue;
+
+        /* --- As the first lin ef the file contains the names of the fields it should be ignored--- */
+        if(firstLine) {
+            firstLine = false;
+            continue;
+        }
+
+        char **tokens = split(nextline, 4, ";");
+        
+        /* --- At this moment the tokens array is composed with the following "strings" --- */
+        // tokens[0] = regions
+        // tokens[1] = city
+        // tokens[2] = area
+        // tokens[3] = populpation
+        
+        MapKey key = keyCreate(tokens[0]);
+        
+        // Population
+        char population[100] = " ";
+        splitJoin(tokens[2], ",", population);
+
+        // Area
+        char area[100] = " ";
+        splitJoin(tokens[3], ",", area);
+
+        MapValue value = regionCreate(tokens[0],
+                                      tokens[1],
+                                      atoi(population),
+                                      atof(area));
+                                      //10000,
+                                      //2000);
+
+        int error_code = mapPut(*mapRegion, key, value);
+
+        if(error_code == MAP_FULL ||
+           error_code == MAP_UNKNOWN_KEY ||
+           error_code == MAP_NO_MEMORY ||
+           error_code == MAP_NULL) {
+
+            printf("An error ocurred... Please try again... \n");
+            return;
+        }
+
+        /* --- Release of memory alocated in function split --- */
+        free(tokens);
+
+        countRegion++;
+    }
+
+    printf("\n\n%d regions were read!\n\n", countRegion);
+    fclose(f);
+
+}
+
 void importPatientsFromFile(char * filename, PtList *listPatient) {
     FILE *f = NULL;
 
@@ -84,7 +209,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
         if(strlen(nextline) < 1)
             continue;
 
-        /* --- As the first line of the file contains the names of the fields ir should be ignored --- */
+        /* --- As the first line of the file contains the names of the fields it should be ignored --- */
         if(firstLine) {
             firstLine = false;
             continue;
@@ -149,7 +274,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
                                          deceasedDate,
                                          tokens[10]);
         
-        /*Release of memory alocated in function split*/
+        /* --- Release of memory alocated in function split --- */
         free(tokens);
 
         int error_code = listAdd(*listPatient, countPatient, patient);

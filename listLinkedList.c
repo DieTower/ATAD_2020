@@ -73,6 +73,7 @@ int listDestroy(PtList *ptList) {
 	while (current != NULL) {
 		PtNode remove = current;
 		current = current->next;
+		free(remove->element);
 		free(remove);
 	}
 

@@ -8,13 +8,14 @@
 
 #include "mapElem.h"
 #include <stdio.h>
+#include <string.h>
 
 void mapKeyPrint(MapKey key) {
-	printf("%s \n", key);
+	printf("%s\n", key);
 }
 
 void mapValuePrint(MapValue value) {
-
+    
 	if(value == NULL) {
         printf("(NULL)\n");
     } else {
@@ -23,6 +24,13 @@ void mapValuePrint(MapValue value) {
 }
 
 bool mapKeyEquals(MapKey key1, MapKey key2) {
-	// in case of integer keys:
-	return (key1 == key2); 
+	// in case of string keys:
+    // printf("Key1: %s --- Key2: %s\n", key1, key2);
+    if(strcmp(key1, key2) == 0) {
+        // printf("Super true\n");
+        return true;
+    } else {
+        // printf("Super false\n\n");
+        return false;
+    }
 }

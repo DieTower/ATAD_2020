@@ -8,6 +8,7 @@
  */
 
 #include "list.h"
+#include "map.h"
 
 /**
  * @brief Put every char in one char array in lowercase
@@ -34,9 +35,50 @@ void upperCase(char *str);
 char** split(char *string, int nFields, const char *delim);
 
 /**
+ * @brief Count how many charecters in one "string" are equal to the char inserted
+ * 
+ * @param str 
+ * @param c 
+ * @return int 
+ */
+int strCountChar(char *str, const char *c);
+
+/**
+ * @brief Split one "string" and join the values splited in a new one
+ * 
+ * @param str 
+ * @param delim 
+ */
+void splitJoin(char *str, const char *delim, char *res);
+
+/**
+ * @brief Create a Mapkey allocation
+ * 
+ * @param str 
+ * @return MapKey 
+ */
+MapKey keyCreate(char str[100]);
+
+/**
+ * @brief Destroy a Mapkey allocated
+ * 
+ * @param c 
+ * @return int 
+ */
+int keyDestroy(MapKey *c);
+
+/**
  * @brief Populate a patient list 
  * 
  * @param filename 
  * @param listPatient 
  */
 void importPatientsFromFile(char * filename, PtList *listPatient);
+
+/**
+ * @brief Populate a region map
+ * 
+ * @param filename 
+ * @param mapRegion 
+ */
+void importRegionsFromFile(char * filename, PtMap *mapRegion);
