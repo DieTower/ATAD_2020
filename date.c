@@ -20,7 +20,7 @@ PtDate dateCreate(
     unsigned int month,
     unsigned int year
 ) {
-    PtDate date = (PtDate) malloc(sizeof(Date));
+    PtDate date = (PtDate)malloc(sizeof(Date));
 
     if(date == NULL) return NULL;
     

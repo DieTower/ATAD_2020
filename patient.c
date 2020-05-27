@@ -42,21 +42,26 @@ PtPatient patientCreate(
     PtDate deceasedDate,
     char status[10]
 ) {
-    PtPatient patient = (PtPatient) malloc(sizeof(Patient));
+    PtPatient patient = (PtPatient) calloc(1, sizeof(Patient));
 
     if(patient == NULL) return NULL;
 
     patient->id = id;
-    memcpy(patient->sex, sex, (sizeof(patient->sex)+1));
+    // memcpy(patient->sex, sex, (sizeof(patient->sex)+1));
+    strcpy(patient->sex, sex);
     patient->birthYear = birthYear;
-    memcpy(patient->country, country, (sizeof(patient->country)+1));
-    memcpy(patient->region, region, (sizeof(patient->region)+1));
-    memcpy(patient->infectionReason, infectionReason, (sizeof(patient->infectionReason)+1));
+    // memcpy(patient->country, country, (sizeof(patient->country)+1));
+    strcpy(patient->country, country);
+    // memcpy(patient->region, region, (sizeof(patient->region)+1));
+    strcpy(patient->region, region);
+    // memcpy(patient->infectionReason, infectionReason, (sizeof(patient->infectionReason)+1));
+    strcpy(patient->infectionReason, infectionReason);
     patient->infectedBy = infectedBy;
     patient->confirmedDate = dateCreate(confirmedDate->day, confirmedDate->month, confirmedDate->year);
     patient->releasedDate = dateCreate(releasedDate->day, releasedDate->month, releasedDate->year);
     patient->deceasedDate = dateCreate(deceasedDate->day, deceasedDate->month, deceasedDate->year);
-    memcpy(patient->status, status, (sizeof(patient->status)+1));
+    // memcpy(patient->status, status, (sizeof(patient->status)+1));
+    strcpy(patient->status, status);
 
     return patient;
 }
@@ -67,11 +72,11 @@ int patientDestroy(PtPatient *p) {
 
     if(patient == NULL) return PATIENT_NULL;
 
-    if(dateDestroy(&patient->confirmedDate) == DATE_NULL) return PATIENT_NULL;
+    dateDestroy(&patient->confirmedDate);
 
-    if(dateDestroy(&patient->releasedDate) == DATE_NULL) return PATIENT_NULL;
+    dateDestroy(&patient->releasedDate);
 
-    if(dateDestroy(&patient->deceasedDate) == DATE_NULL) return PATIENT_NULL;
+    dateDestroy(&patient->deceasedDate);
 
     free(patient);
     *p = NULL;

@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 
 	PtList list = listCreate(1024);
 	importPatientsFromFile("patients.csv", &list);
-	listPrint(list);
+	//listPrint(list);
 	listDestroy(&list);
 
 	/* declaracao de variaveis */

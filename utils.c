@@ -165,8 +165,9 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion) {
                                       tokens[1],
                                       atoi(population),
                                       atof(area));
-                                      //10000,
-                                      //2000);
+
+        /* --- Release of memory alocated in function split --- */
+        free(tokens);
 
         int error_code = mapPut(*mapRegion, key, value);
 
@@ -178,9 +179,6 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion) {
             printf("An error ocurred... Please try again... \n");
             return;
         }
-
-        /* --- Release of memory alocated in function split --- */
-        free(tokens);
 
         countRegion++;
     }
@@ -234,33 +232,33 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
 
         // Patient confirmed date
         PtDate confirmedDate;
+        char **confirmedDateTokens;
         if(strlen(tokens[7]) == 0) {
             confirmedDate = dateCreate(0,0,0);
         } else {
-            char **confirmedDateTokens = split(tokens[7], 3, "/");
+            confirmedDateTokens = split(tokens[7], 3, "/");
             confirmedDate = dateCreate(atoi(confirmedDateTokens[0]), atoi(confirmedDateTokens[1]), atoi(confirmedDateTokens[2]));
         }
 
-        // Patient released date
+        // // Patient released date
         PtDate releasedDate;
+        char **releasedDateTokens;
         if(strlen(tokens[8]) == 0) {
             releasedDate = dateCreate(0,0,0);
         } else {
-            char **releasedDateTokens = split(tokens[8], 3, "/");
+            releasedDateTokens = split(tokens[8], 3, "/");
             releasedDate = dateCreate(atoi(releasedDateTokens[0]), atoi(releasedDateTokens[1]), atoi(releasedDateTokens[2]));
         }
 
-        // Patient deceased date
+        // // Patient deceased date
         PtDate deceasedDate;
+        char **deceasedDateTokens;
         if(strlen(tokens[9]) == 0) {
             deceasedDate = dateCreate(0,0,0);
         } else {
-            char **deceasedDateTokens = split(tokens[9], 3, "/");
+            deceasedDateTokens = split(tokens[9], 3, "/");
             deceasedDate = dateCreate(atoi(deceasedDateTokens[0]), atoi(deceasedDateTokens[1]), atoi(deceasedDateTokens[2]));
-            datePrint(deceasedDate);
-            printf("\n\n");
         }
-
 
         ListElem patient = patientCreate(atol(tokens[0]),
                                          tokens[1],
@@ -274,6 +272,14 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
                                          deceasedDate,
                                          tokens[10]);
         
+        free(confirmedDateTokens);
+        free(releasedDateTokens);
+        free(deceasedDateTokens);
+
+        free(confirmedDate);
+        free(releasedDate);
+        free(deceasedDate);
+
         /* --- Release of memory alocated in function split --- */
         free(tokens);
 
