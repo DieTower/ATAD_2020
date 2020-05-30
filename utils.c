@@ -228,7 +228,19 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
         // tokens[9] = deceased_date
         // tokens[10] = state
 
-        /* --- Set dates from patient --- */
+        /* --- Set data from patient --- */
+
+        // If birth_day is null the data needs be -1
+        int birth_year = atoi(tokens[2]);
+        if(birth_year == 0) {
+            birth_year = -1;
+        }
+
+        // If infected_by is null the data needs be -1
+        long int infected_by = atol(tokens[6]);
+        if(infected_by == 0) {
+            infected_by = -1;
+        }
 
         // Patient confirmed date
         PtDate confirmedDate;
@@ -262,11 +274,11 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
 
         ListElem patient = patientCreate(atol(tokens[0]),
                                          tokens[1],
-                                         atoi(tokens[2]),
+                                         birth_year,
                                          tokens[3],
                                          tokens[4],
                                          tokens[5],
-                                         atol(tokens[6]),
+                                         infected_by,
                                          confirmedDate,
                                          releasedDate,
                                          deceasedDate,
