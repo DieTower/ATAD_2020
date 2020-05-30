@@ -17,24 +17,24 @@
 #include <ctype.h>
 
 
-void lowerCase(char *str) {
-    int size = (int)strlen(str);
+void lowerCase(char *str1, char *str2) {
+    int size = (int)strlen(str1);
     
     for(int i = 0; i < size; i++) {
-        str[i] = tolower(str[i]);
+        str2[i] = tolower(str1[i]);
     }
 
-    str[size] = '\0';
+    str2[size] = '\0';
 };
 
-void upperCase(char *str) {
-    int size = (int)strlen(str);
+void upperCase(char *str1, char *str2) {
+    int size = (int)strlen(str1);
     
     for(int i = 0; i < size; i++) {
-        str[i] = toupper(str[i]);
+        str2[i] = toupper(str1[i]);
     }
 
-    str[size] = '\0';
+    str2[size] = '\0';
 };
 
 char** split(char *string, int nFields, const char *delim) {
@@ -123,7 +123,8 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion) {
     f = fopen(filename, "r");
 
     if(f == NULL) {
-        printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
+        // printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
+        printf("File not found");
         return;
     }
 
@@ -194,7 +195,8 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
     f = fopen(filename, "r");
 
     if(f == NULL) {
-        printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
+        // printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
+        printf("File not found");
         return;
     }
 
@@ -255,6 +257,8 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
         // // Patient released date
         PtDate releasedDate;
         char **releasedDateTokens;
+        //printf("Token: %s\n", tokens[8]);
+        //printf("Length: %ld\n\n", strlen(tokens[8]));
         if(strlen(tokens[8]) == 0) {
             releasedDate = dateCreate(0,0,0);
         } else {
@@ -284,9 +288,9 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
                                          deceasedDate,
                                          tokens[10]);
         
-        free(confirmedDateTokens);
-        free(releasedDateTokens);
-        free(deceasedDateTokens);
+        if(strlen(tokens[7]) != 0) free(confirmedDateTokens);
+        if(strlen(tokens[8]) != 0) free(releasedDateTokens);
+        if(strlen(tokens[9]) != 0) free(deceasedDateTokens);
 
         free(confirmedDate);
         free(releasedDate);

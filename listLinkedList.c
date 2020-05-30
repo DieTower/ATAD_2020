@@ -51,8 +51,8 @@ PtList listCreate(unsigned int initialCapacity) {
 	PtList newList = (PtList)malloc(sizeof(ListImpl));
 	if (newList == NULL) return NULL;
 
-	newList->header = (PtNode)malloc(sizeof(Node));
-	newList->trailer = (PtNode)malloc(sizeof(Node));
+	newList->header = (PtNode)calloc(1, sizeof(Node));
+	newList->trailer = (PtNode)calloc(1, sizeof(Node));
 
 	newList->header->prev = NULL;
 	newList->header->next = newList->trailer;
@@ -74,7 +74,6 @@ int listDestroy(PtList *ptList) {
 		PtNode remove = current;
 		current = current->next;
 		
-		patientPrint(remove->element);
 		patientDestroy(&remove->element);
 		free(remove);
 	}

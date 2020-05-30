@@ -15,14 +15,14 @@
  * 
  * @param str[in][out]
  */
-void lowerCase(char *str);
+void lowerCase(char *str1, char *str2);
 
 /**
  * @brief Put every char in one char array in uppercase
  * 
  * @param str[in][out]
  */
-void upperCase(char *str);
+void upperCase(char *str1, char *str2);
 
 /**
  * @brief Split a "string"(char array)

@@ -68,9 +68,9 @@ PtPatient patientCreate(
 
 int patientDestroy(PtPatient *p) {
 
-    PtPatient patient = *p;
+    if(*p == NULL) return PATIENT_NULL;
 
-    if(patient == NULL) return PATIENT_NULL;
+    PtPatient patient = *p;
 
     dateDestroy(&patient->confirmedDate);
 

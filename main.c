@@ -34,12 +34,14 @@ int main(int argc, char** argv) {
 
 	// mapDestroy(&mapList);
 
-	PtList list = listCreate(1024);
-	importPatientsFromFile("patients.csv", &list);
-	//listPrint(list);
-	listDestroy(&list);
+	// PtList list = listCreate(1024);
+	// importPatientsFromFile("patients.csv", &list);
+	// listPrint(list);
+	// listDestroy(&list);
 
 	/* declaracao de variaveis */
+	PtList patientList = listCreate(1024);
+	PtMap regionMap = mapCreate(1024);
 
 	/* interpretador de comandos */
 	String command;
@@ -57,15 +59,19 @@ int main(int argc, char** argv) {
 		if (equalsStringIgnoreCase(command, "QUIT")) {
 			quit = 1; /* vai provocar a saída do interpretador */				
 		}
-		else if (equalsStringIgnoreCase(command, "LOAD")) {
-			/* invocação da função responsável pela respetiva
-			funcionalidade. Remover printf seguinte após implementação */
-			printf("Comando LOAD nao implementado.\n");
+		else if (equalsStringIgnoreCase(command, "LOADP")) {
+			
+			String fileName;
+
+			printf("FILENAME> ");
+			fgets(fileName, sizeof(fileName), stdin);
+			fileName[strlen(fileName) - 1] = '\0';
+
+			importPatientsFromFile(fileName, &patientList); // patients.csv
+			printf("\n");
 		}
 		else if (equalsStringIgnoreCase(command, "LOADR")) {
-			/* invocação da função responsável pela respetiva
-			funcionalidade. Remover printf seguinte após implementação */
-			printf("Comando LOADR nao implementado.\n");
+			importRegionsFromFile("regions.csv", &regionMap);
 		}
 		else if (equalsStringIgnoreCase(command, "CLEAR")) {
 			printf("Comando CLEAR nao implementado.\n");
@@ -111,15 +117,16 @@ int main(int argc, char** argv) {
 }
 
 int equalsStringIgnoreCase(char str1[], char str2[]) {
-	upperCase(str1);
-	return (strcmp(str1, str2) == 0);
+	char strCmp[50] = " ";
+	upperCase(str1, strCmp);
+	return (strcmp(strCmp, str2) == 0);
 }
 
 void printCommandsMenu() {
 	printf("\n===================================================================================");
 	printf("\n                          PROJECT: COVID-19                    ");
 	printf("\n===================================================================================");
-	printf("\nA. Base Commands (LOAD, LOADR,CLEAR).");
+	printf("\nA. Base Commands (LOADP, LOADR, CLEAR).");
 	printf("\nB. Simple Indicators and searchs (AVERAGE, FOLLOW, MATRIX, OLDEST, RELEASED, SEX, SHOW, TOP5).");
 	printf("\nC. Advanced indicator (REGIONS, REPORTS)");
 	printf("\nD. Exit (QUIT)\n\n");
