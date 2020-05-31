@@ -196,7 +196,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
 
     if(f == NULL) {
         // printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
-        printf("File not found");
+        printf("File not found\n");
         return;
     }
 
@@ -247,6 +247,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
         // Patient confirmed date
         PtDate confirmedDate;
         char **confirmedDateTokens;
+
         if(strlen(tokens[7]) == 0) {
             confirmedDate = dateCreate(0,0,0);
         } else {
@@ -257,8 +258,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
         // // Patient released date
         PtDate releasedDate;
         char **releasedDateTokens;
-        //printf("Token: %s\n", tokens[8]);
-        //printf("Length: %ld\n\n", strlen(tokens[8]));
+
         if(strlen(tokens[8]) == 0) {
             releasedDate = dateCreate(0,0,0);
         } else {
@@ -269,6 +269,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
         // // Patient deceased date
         PtDate deceasedDate;
         char **deceasedDateTokens;
+
         if(strlen(tokens[9]) == 0) {
             deceasedDate = dateCreate(0,0,0);
         } else {
@@ -317,3 +318,24 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
     fclose(f);
 }
 
+// ----- COMMAND Functions -----
+
+void patientsImported(PtList listPatient, int *num) {
+    int size = 0;
+    listSize(listPatient, &size);
+    
+    ListElem patient;
+    char str[50] = " ";
+
+    for(int i=0; i<=size; i++) {
+        
+        listGet(listPatient, i, &patient);
+        patientStatus(patient, str);
+
+        printf("Patient state %s\n", str);
+
+        if(strcmp(str, "infected")) {
+
+        }
+    }
+}

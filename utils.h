@@ -13,14 +13,16 @@
 /**
  * @brief Put every char in one char array in lowercase
  * 
- * @param str[in][out]
+ * @param str1[in]
+ * @param str2[out]
  */
 void lowerCase(char *str1, char *str2);
 
 /**
  * @brief Put every char in one char array in uppercase
  * 
- * @param str[in][out]
+ * @param str1[in]
+ * @param str2[out]
  */
 void upperCase(char *str1, char *str2);
 
@@ -82,3 +84,11 @@ void importPatientsFromFile(char * filename, PtList *listPatient);
  * @param mapRegion 
  */
 void importRegionsFromFile(char * filename, PtMap *mapRegion);
+
+/**
+ * @brief Finds the number of patients infecteds imported
+ * 
+ * @param listPatient 
+ * @param num 
+ */
+void patientsImported(PtList listPatient, int *num);

@@ -61,20 +61,38 @@ int main(int argc, char** argv) {
 		}
 		else if (equalsStringIgnoreCase(command, "LOADP")) {
 			
+			// --- Load patients file ---
+
 			String fileName;
 
 			printf("FILENAME> ");
 			fgets(fileName, sizeof(fileName), stdin);
 			fileName[strlen(fileName) - 1] = '\0';
 
-			importPatientsFromFile(fileName, &patientList); // patients.csv
-			printf("\n");
+			importPatientsFromFile(fileName, &patientList); // -> patients.csv
 		}
 		else if (equalsStringIgnoreCase(command, "LOADR")) {
+
+			// --- Load region file ---
+
 			importRegionsFromFile("regions.csv", &regionMap);
 		}
 		else if (equalsStringIgnoreCase(command, "CLEAR")) {
-			printf("Comando CLEAR nao implementado.\n");
+
+			// --- Clear data ---
+
+			// Patient list and Region map sizes
+			int patientSize = 0;
+			listSize(patientList, &patientSize);
+
+			int regionSize = 0;
+			mapSize(regionMap, &regionSize);
+			
+			// Destroy patient list and region map
+			listDestroy(&patientList);
+			mapDestroy(&regionMap);
+
+			printf("%d records deleted from <Patients | Regions>\n", (patientSize + regionSize));
 		}
 		else if (equalsStringIgnoreCase(command, "AVERAGE")) {
 			printf("Comando AVERAGE nao implementado.\n");
