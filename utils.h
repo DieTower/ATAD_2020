@@ -88,7 +88,7 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion);
 /**
  * @brief Finds the number of patients infecteds imported
  * 
- * @param listPatient 
- * @param num 
+ * @param listPatient [in]
+ * @param status [in]
  */
-void patientsImported(PtList listPatient, int *num);
+void patientsAVG(PtList listPatient, char *status);

@@ -186,7 +186,7 @@ int patientStatus(PtPatient p, char *status) {
 
     if(p == NULL) return PATIENT_NULL;
 
-    memcpy(status, p->status, sizeof(p->status));
+    strcpy(status, p->status);
 
     return PATIENT_OK;
 }

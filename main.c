@@ -92,10 +92,15 @@ int main(int argc, char** argv) {
 			listDestroy(&patientList);
 			mapDestroy(&regionMap);
 
+			patientList = listCreate(1024);
+			regionMap = mapCreate(1024);
+
 			printf("%d records deleted from <Patients | Regions>\n", (patientSize + regionSize));
 		}
 		else if (equalsStringIgnoreCase(command, "AVERAGE")) {
-			printf("Comando AVERAGE nao implementado.\n");
+			patientsAVG(patientList, "deceased");
+			patientsAVG(patientList, "released");
+			patientsAVG(patientList, "isolated");
 		}
 		else if (equalsStringIgnoreCase(command, "FOLLOW")) {
 			printf("Comando FOLLOW nao implementado.\n");
@@ -130,6 +135,8 @@ int main(int argc, char** argv) {
 	}
 
 	/* libertar memória e apresentar mensagem de saída. */
+	listDestroy(&patientList);
+	mapDestroy(&regionMap);
 
 	return (EXIT_SUCCESS);
 }

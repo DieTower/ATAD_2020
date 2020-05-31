@@ -320,22 +320,33 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
 
 // ----- COMMAND Functions -----
 
-void patientsImported(PtList listPatient, int *num) {
+void patientsAVG(PtList listPatient, char *status) {
+    
+    int sum = 0;
+    int count = 0;
+
     int size = 0;
     listSize(listPatient, &size);
-    
+
     ListElem patient;
-    char str[50] = " ";
+    char statusFromPatient[50] = " ";
 
     for(int i=0; i<=size; i++) {
         
         listGet(listPatient, i, &patient);
-        patientStatus(patient, str);
+        patientStatus(patient, statusFromPatient);
 
-        printf("Patient state %s\n", str);
-
-        if(strcmp(str, "infected")) {
-
+        int birthYear;
+        int error_code = patientBithYear(patient, &birthYear);
+        
+        if(strncmp(statusFromPatient, status, sizeof(status)) == 0 && error_code == 0 && birthYear != -1) {
+            int age = 2020 - birthYear;
+            sum += age;
+            count++;
         }
     }
+
+    float avg = (float)sum/count;
+
+    printf("Average Age for %s patients: %.2f\n", status, avg);
 }
