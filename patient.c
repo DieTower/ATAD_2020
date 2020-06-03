@@ -101,6 +101,43 @@ void patientPrint(PtPatient p) {
 
 }
 
+void patientDirectedPrint(PtPatient p, char direction) {
+
+    // Check if birth day exist and set the age
+    int age = 0;
+    patientAge(p, &age);
+
+    char patient_age[50] = " ";
+    if(age == -1) {
+        strcpy(patient_age, "unknown");
+    } else {
+        char buffer[50] = " ";
+        sprintf(buffer, "%d", age);
+        strcpy(patient_age, buffer);
+    }
+
+    // Check if data about the patient sex exist and set sex
+    char patient_sex[50] = " ";
+    if(strlen(p->sex) == 0)  {
+        strcpy(patient_sex, "unknown");
+    } else {
+        strcpy(patient_sex, p->sex);
+    }
+
+    if(direction == 'h') {
+
+        printf("ID: %ld, SEX: %s, AGE: %s, COUNTRY/REGION: %s/%s, STATE: %s", p->id, patient_sex, patient_age, p->country, p->region, p->status);
+    
+    } else if(direction == 'v') {
+        
+        printf("ID: %ld\nSEX: %s\nAGE: %s\nCOUNTRY/REGION: %s/%s\nINFECTED REASON: %s\nSTATE: %s", p->id, patient_sex, patient_age, p->country, p->region, p->infectionReason, p->status);
+
+    } else {
+
+        printf("(NULL) \n");
+    }
+}
+
 int patientId(PtPatient p, long int *id) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -155,6 +192,15 @@ int patientInfectionReason(PtPatient p, char *infectionReason) {
     return PATIENT_OK;
 }
 
+int patientInfectedBy(PtPatient p, long int *infectedBy) {
+
+    if(p == NULL) return PATIENT_NULL;
+
+    (*infectedBy) = p->infectedBy;
+
+    return PATIENT_OK;
+}
+
 int patientConfirmedDate(PtPatient p, PtDate *confirmedDate) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -187,6 +233,24 @@ int patientStatus(PtPatient p, char *status) {
     if(p == NULL) return PATIENT_NULL;
 
     strcpy(status, p->status);
+
+    return PATIENT_OK;
+}
+
+int patientAge(PtPatient p, int *age) {
+
+    if(p == NULL) return PATIENT_NULL;
+
+    int birthYear = 0;
+    int error_code = patientBithYear(p, &birthYear);
+
+    if(error_code != 0) return PATIENT_NULL;
+
+    if(birthYear == -1) {
+        *age = birthYear;
+    } else {
+        *age = 2020 - birthYear;
+    }
 
     return PATIENT_OK;
 }

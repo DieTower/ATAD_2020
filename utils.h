@@ -92,3 +92,27 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion);
  * @param status [in]
  */
 void patientsAVG(PtList listPatient, char *status);
+
+/**
+ * @brief Show every chain of infection by one patient
+ * 
+ * @param listPatient 
+ * @param id 
+ */
+void patientsFOLLOW(PtList listPatient, long int id);
+
+/**
+ * @brief Show percent of patients by sex
+ * 
+ * @param listPatient 
+ * @param sex 
+ */
+void patientsSEX(PtList listPatient, char *sex);
+
+/**
+ * @brief Insert a id and print a patient lincked with this id
+ * 
+ * @param listPatient 
+ * @param id 
+ */
+void patientsSHOW(PtList listPatient, long int id);

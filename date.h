@@ -74,3 +74,23 @@ int dateMonth(PtDate d, int *month);
  * @return int 
  */
 int dateYear(PtDate d, int *year);
+
+/**
+ * @brief Return the difference in days between two dates
+ * 
+ * @param d1 [in]
+ * @param d2 [in]
+ * @param diff [out]
+ * @return int 
+ */
+int diffDates(PtDate d1, PtDate d2, int *diff);
+
+/**
+ * @brief Find the biggest date between two dates
+ * 
+ * @param d1 [in]
+ * @param d2 [in]
+ * @param date [out]
+ * @return int 
+ */
+int biggestDate(PtDate d1, PtDate d2, PtDate *date);

@@ -103,13 +103,32 @@ int main(int argc, char** argv) {
 			patientsAVG(patientList, "isolated");
 		}
 		else if (equalsStringIgnoreCase(command, "FOLLOW")) {
-			printf("Comando FOLLOW nao implementado.\n");
+			
+			String id;
+
+			printf("PATIENT ID> ");
+			fgets(id, sizeof(id), stdin);
+			id[strlen(id) - 1] = '\0';
+			
+			patientsFOLLOW(patientList, atol(id)); // Ex.: 1000000005
+			printf("\n");
 		}
 		else if (equalsStringIgnoreCase(command, "SEX")) {
-			printf("Comando SEX nao implementado.\n");
+			
+			patientsSEX(patientList, "female");
+			patientsSEX(patientList, "male");
+			patientsSEX(patientList, "unknown");
 		}
 		else if (equalsStringIgnoreCase(command, "SHOW")) {
-			printf("Comando SHOW nao implementado.\n");
+			
+			String id;
+
+			printf("PATIENT ID> ");
+			fgets(id, sizeof(id), stdin);
+			id[strlen(id) - 1] = '\0';
+			
+			printf("\n");
+			patientsSHOW(patientList, atol(id)); // Ex.: 1000000482
 		}
 		else if (equalsStringIgnoreCase(command, "TOP5")) {
 			printf("Comando TOP5 nao implementado.\n");

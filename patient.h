@@ -63,6 +63,14 @@ int patientDestroy(PtPatient *p);
 void patientPrint(PtPatient p);
 
 /**
+ * @brief Basic print from patient 
+ * 
+ * @param p 
+ * @param direction [h(horizontal) | v(vertical)]
+ */
+void patientDirectedPrint(PtPatient p, char direction);
+
+/**
  * @brief Return a id from patient
  * 
  * @param p [in]
@@ -117,6 +125,15 @@ int patientRegion(PtPatient p, char *region);
 int patientInfectionReason(PtPatient p, char *infectionReason);
 
 /**
+ * @brief Return a infectedBy from patient
+ * 
+ * @param p 
+ * @param infectedBy 
+ * @return int 
+ */
+int patientInfectedBy(PtPatient p, long int *infectedBy);
+
+/**
  * @brief Return a confirmedDate from patient
  * 
  * @param p [in]
@@ -151,3 +168,12 @@ int patientDeceasedDate(PtPatient p, PtDate *deceasedDate);
  * @return int 
  */
 int patientStatus(PtPatient p, char *status);
+
+/**
+ * @brief Return a Age of one patient
+ * 
+ * @param p [in]
+ * @param age [out]
+ * @return int 
+ */
+int patientAge(PtPatient p, int *age);

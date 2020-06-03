@@ -318,6 +318,47 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
     fclose(f);
 }
 
+int regionFromPatient(PtMap m, PtPatient p, PtRegion *r) {
+
+    if(p == NULL) return PATIENT_NULL;
+
+    char k[50] = " ";
+    patientRegion(p, k);
+    MapKey key = keyCreate(k);
+
+    PtRegion region = *r;
+    mapGet(m, key, &region);
+    
+    return PATIENT_OK;
+}
+
+// Returns the most distant date in the file patients
+void maxDateInFile(PtList listPatient, PtDate *date) {
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patient;
+    PtDate patient_date;
+    
+    PtDate date_max;
+
+    listGet(listPatient, 0, &patient);
+    patientConfirmedDate(patient, &date_max);
+
+    for(int i=1; i<=size; i++) {
+
+        // Patient
+        listGet(listPatient, i, &patient);
+        patientConfirmedDate(patient, &patient_date);
+        
+        biggestDate(date_max, patient_date, &date_max);
+        
+    }
+
+    *date = date_max;
+}
+
 // ----- COMMAND Functions -----
 
 void patientsAVG(PtList listPatient, char *status) {
@@ -349,4 +390,145 @@ void patientsAVG(PtList listPatient, char *status) {
     float avg = (float)sum/count;
 
     printf("Average Age for %s patients: %.2f\n", status, avg);
+}
+
+void patientsFOLLOW(PtList listPatient, long int id) {
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patient;
+    long int infectedBy = 0;
+    
+    long int patient_id = id;
+
+    long int currentID = 0;
+    int firstPatient = false;
+
+    // Run until don't exist more infectedBy chain
+    while(patient_id != -1) {
+        
+        int error_code = 0;
+
+        // Run all the patients
+        for(int i=0; i<=size; i++) {
+            
+            // Get the patient by rank
+            int error_code = listGet(listPatient, i, &patient);
+            
+            // Check if listGet found the patient
+            if(error_code != 0) break;
+            
+            // Insert the id in currentID
+            patientId(patient, &currentID);
+
+            // If current id is the the same of the patient in chain 
+            if(currentID == patient_id) {
+                
+                // Print
+                if(firstPatient) {
+                    printf("contaminated by Patient: ");
+                } else {
+                    printf("Following Patient: ");
+                }
+
+                patientDirectedPrint(patient, 'h');
+
+                // Set the infectedBy as id
+                patientInfectedBy(patient, &infectedBy);
+                patient_id = infectedBy;
+
+                // Check if exist a infectedBy, if not print that
+                if(!firstPatient && patient_id == -1) {
+                    printf("contaminated by: unknown\n");
+                }
+
+                firstPatient = true;
+            }
+
+        }
+
+        if(error_code != 0) break;
+    }
+}
+
+void patientsSEX(PtList listPatient, char *sex) {
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patient;
+    char sexFromPatient[50] = " ";
+
+    int count = 0;
+    for(int i=0; i<=size; i++) {
+
+        listGet(listPatient, i, &patient);
+        patientSex(patient, sexFromPatient);
+
+
+            if(strncmp(sexFromPatient, sex, sizeof(sex)) == 0 && strncmp("unknown", sex, sizeof(sex)) != 0) {
+                count++;
+            } else if(strncmp("", sexFromPatient, sizeof(sexFromPatient)) == 0) {
+                count++;
+            }
+    }
+
+    double percentage = (double)(count*100)/size;
+    printf("Percentage of %s: %.2f%%\n", sex, percentage);
+}
+
+void patientsSHOW(PtList listPatient, long int id) {
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    PtDate date1;
+    PtDate date2;
+
+    char status[20] = " ";
+
+    ListElem patient;
+    long int patient_id = 0;
+
+    for(int i=0; i<=size; i++) {
+
+        listGet(listPatient, i, &patient);
+        patientId(patient, &patient_id);
+
+        if(patient_id == id) {
+            patientDirectedPrint(patient, 'v');
+
+            patientConfirmedDate(patient, &date1);
+
+            char status[20] = " ";
+            patientStatus(patient, status);
+
+            if(strncmp(status, "isolated", 8) == 0) {
+
+                maxDateInFile(listPatient, &date2);
+
+            } else if(strncmp(status, "released", 8) == 0) {
+
+                patientReleasedDate(patient, &date2);
+
+            } else if(strncmp(status, "deceased", 8) == 0) {
+                
+                patientDeceasedDate(patient, &date2);
+                
+            }
+        }
+    }
+
+    int day = 0;
+    int error_code = diffDates(date1, date2, &day);
+
+    char buffer[50] = " ";
+    if(error_code == 0) {
+        sprintf(buffer, "%d", day);
+    } else {
+        strcpy(buffer, "unknown");
+    }
+
+    printf("NUMBER OF DAYS WITH ILLNESS: %s\n", buffer);
 }
