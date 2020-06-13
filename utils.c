@@ -548,10 +548,10 @@ void patientsTOP5(PtList listPatient){
     int day2 = 0;
     int age, age2;
 
-    for(int i = 0; i < size; i++){
-        listGet(listPatient, i, &patient);
+    for(int k = 0; k < size; k++){
+        listGet(listPatient, k, &patient);
 
-        patients[i] = patient;
+        patients[k] = patient;
     }
 
     for (int i = 0; i < size; ++i) 
@@ -589,8 +589,8 @@ void patientsTOP5(PtList listPatient){
 
     long int patient_id = 0;
 
-    for(int i = 0; i < 5; i++){
-        patientId(patients[i], &patient_id);
+    for(int l = 0; l < 5; l++){
+        patientId(patients[l], &patient_id);
         patientsSHOW(listPatient, patient_id);
         printf("\n");
     }
@@ -615,18 +615,18 @@ void patientsOLDEST(PtList listPatient){
     long int maxYearMale = 9999;
     long int maxYearFemale = 9999;
 
-    for(int i = 0; i < size; i++){
-        patientSex(patients[i], sex);
+    for(int j = 0; j < size; j++){
+        patientSex(patients[j], sex);
 
         if(strncmp(sex, "male", 8) == 0){
-            patientBithYear(patients[i], &yearMale);
+            patientBithYear(patients[j], &yearMale);
 
             if((yearMale < maxYearMale) && (yearMale != -1))
                 maxYearMale = yearMale;
         }
 
         if(strncmp(sex, "female", 8) == 0){
-            patientBithYear(patients[i], &yearFemale);
+            patientBithYear(patients[j], &yearFemale);
 
             if((yearFemale < maxYearFemale) && (yearFemale != -1))
                 maxYearFemale = yearFemale;
@@ -635,32 +635,34 @@ void patientsOLDEST(PtList listPatient){
 
     int numF = 1;
     printf("FEMALES:\n");
-    for(int i = 0; i < size; i++){
-        patientBithYear(patients[i], &yearFemale);
-        patientSex(patients[i], sex);
+    for(int k = 0; k < size; k++){
+        patientBithYear(patients[k], &yearFemale);
+        patientSex(patients[k], sex);
 
-        if(strncmp(sex, "female", 8) == 0)
+        if(strncmp(sex, "female", 8) == 0){
             if(yearFemale == maxYearFemale)
             {
                 printf("%d - ", numF);
-                patientDirectedPrint(patients[i], 'h');
+                patientDirectedPrint(patients[k], 'h');
                 numF++;
             }
+        }
     }
 
     int numM = 1;
     printf("MALES:\n");
-    for(int i = 0; i < size; i++){
-        patientBithYear(patients[i], &yearMale);
-        patientSex(patients[i], sex);
+    for(int l = 0; l < size; l++){
+        patientBithYear(patients[l], &yearMale);
+        patientSex(patients[l], sex);
 
-        if(strncmp(sex, "male", 8) == 0)
+        if(strncmp(sex, "male", 8) == 0){
             if(yearMale == maxYearMale)
             {
                 printf("%d - ", numM);
-                patientDirectedPrint(patients[i], 'h');
+                patientDirectedPrint(patients[l], 'h');
                 numM++;
             }
+        }
     }
     
 }

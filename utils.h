@@ -37,7 +37,7 @@ void upperCase(char *str1, char *str2);
 char** split(char *string, int nFields, const char *delim);
 
 /**
- * @brief Count how many charecters in one "string" are equal to the char inserted
+ * @brief Count how many caracters in one "string" are equal to the char inserted
  * 
  * @param str 
  * @param c 
@@ -86,7 +86,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient);
 void importRegionsFromFile(char * filename, PtMap *mapRegion);
 
 /**
- * @brief Finds the number of patients infecteds imported
+ * @brief Finds the number of patients infected imported
  * 
  * @param listPatient [in]
  * @param status [in]
@@ -110,13 +110,23 @@ void patientsFOLLOW(PtList listPatient, long int id);
 void patientsSEX(PtList listPatient, char *sex);
 
 /**
- * @brief Insert a id and print a patient lincked with this id
+ * @brief Insert an id and print a patient with the given id
  * 
  * @param listPatient 
  * @param id 
  */
 void patientsSHOW(PtList listPatient, long int id);
 
+/**
+ * @brief Receives a list of patients and returns the 5 who took the longest to recover
+ * 
+ * @param listPatient 
+ */
 void patientsTOP5(PtList listPatient);
 
+/**
+ * @brief Receives a list of patients and shows the oldest of each sex
+ * 
+ * @param listPatient 
+ */
 void patientsOLDEST(PtList listPatient);
