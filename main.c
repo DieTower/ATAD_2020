@@ -131,10 +131,10 @@ int main(int argc, char** argv) {
 			patientsSHOW(patientList, atol(id)); // Ex.: 1000000482
 		}
 		else if (equalsStringIgnoreCase(command, "TOP5")) {
-			printf("Comando TOP5 nao implementado.\n");
+			patientsTOP5(patientList);
 		}
 		else if (equalsStringIgnoreCase(command, "OLDEST")) {
-			printf("Comando OLDEST nao implementado.\n");
+			patientsOLDEST(patientList);
 		}
 		else if (equalsStringIgnoreCase(command, "GROWTH")) {
 			printf("Comando GROWTH nao implementado.\n");

@@ -532,3 +532,135 @@ void patientsSHOW(PtList listPatient, long int id) {
 
     printf("NUMBER OF DAYS WITH ILLNESS: %s\n", buffer);
 }
+
+void patientsTOP5(PtList listPatient){
+    
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patient;
+    ListElem patients[size];
+    ListElem a;
+
+    PtDate date1, date2, date3, date4;
+
+    int day = 0;
+    int day2 = 0;
+    int age, age2;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+
+        patients[i] = patient;
+    }
+
+    for (int i = 0; i < size; ++i) 
+    {
+        for (int j = i + 1; j < size; ++j) 
+        {
+            patientConfirmedDate(patients[i], &date1);
+            patientReleasedDate(patients[i], &date2);
+
+            diffDates(date1, date2, &day);
+
+            patientConfirmedDate(patients[j], &date3);
+            patientReleasedDate(patients[j], &date4);
+
+            diffDates(date3, date4, &day2);
+
+            if (day < day2) 
+            {
+                a = patients[i];
+                patients[i] = patients[j];
+                patients[j] = a;
+            }
+            else if(day == day2){
+                patientAge(patients[i], &age);
+                patientAge(patients[j], &age2);
+
+                if(age < age2){
+                    a = patients[i];
+                    patients[i] = patients[j];
+                    patients[j] = a;
+                }
+            }
+        }
+    }
+
+    long int patient_id = 0;
+
+    for(int i = 0; i < 5; i++){
+        patientId(patients[i], &patient_id);
+        patientsSHOW(listPatient, patient_id);
+        printf("\n");
+    }
+}
+
+void patientsOLDEST(PtList listPatient){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+
+        patients[i] = patient;
+    }
+
+    char sex[20] = " ";
+    int yearMale, yearFemale;
+    long int maxYearMale = 9999;
+    long int maxYearFemale = 9999;
+
+    for(int i = 0; i < size; i++){
+        patientSex(patients[i], sex);
+
+        if(strncmp(sex, "male", 8) == 0){
+            patientBithYear(patients[i], &yearMale);
+
+            if((yearMale < maxYearMale) && (yearMale != -1))
+                maxYearMale = yearMale;
+        }
+
+        if(strncmp(sex, "female", 8) == 0){
+            patientBithYear(patients[i], &yearFemale);
+
+            if((yearFemale < maxYearFemale) && (yearFemale != -1))
+                maxYearFemale = yearFemale;
+        }
+    }
+
+    int numF = 1;
+    printf("FEMALES:\n");
+    for(int i = 0; i < size; i++){
+        patientBithYear(patients[i], &yearFemale);
+        patientSex(patients[i], sex);
+
+        if(strncmp(sex, "female", 8) == 0)
+            if(yearFemale == maxYearFemale)
+            {
+                printf("%d - ", numF);
+                patientDirectedPrint(patients[i], 'h');
+                numF++;
+            }
+    }
+
+    int numM = 1;
+    printf("MALES:\n");
+    for(int i = 0; i < size; i++){
+        patientBithYear(patients[i], &yearMale);
+        patientSex(patients[i], sex);
+
+        if(strncmp(sex, "male", 8) == 0)
+            if(yearMale == maxYearMale)
+            {
+                printf("%d - ", numM);
+                patientDirectedPrint(patients[i], 'h');
+                numM++;
+            }
+    }
+    
+}

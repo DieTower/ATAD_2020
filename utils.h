@@ -116,3 +116,7 @@ void patientsSEX(PtList listPatient, char *sex);
  * @param id 
  */
 void patientsSHOW(PtList listPatient, long int id);
+
+void patientsTOP5(PtList listPatient);
+
+void patientsOLDEST(PtList listPatient);
