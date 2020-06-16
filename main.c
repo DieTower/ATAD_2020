@@ -137,7 +137,25 @@ int main(int argc, char** argv) {
 			patientsOLDEST(patientList);
 		}
 		else if (equalsStringIgnoreCase(command, "GROWTH")) {
-			printf("Comando GROWTH nao implementado.\n");
+			String day, month, year;
+
+			printf("Please insert a date\n");
+			printf("DAY >");
+			fgets(day, sizeof(day), stdin);
+			day[strlen(day) - 1] = '\0';
+			
+			printf("MONTH >");
+			fgets(month, sizeof(month), stdin);
+			month[strlen(month) - 1] = '\0';
+
+			printf("YEAR >");
+			fgets(year, sizeof(year), stdin);
+			year[strlen(year) - 1] = '\0';
+
+			PtDate dateFormat = dateCreate(atol(day), atol(month), atol(year));
+
+			printf("\n");
+			patientsGROWTH(patientList, dateFormat);
 		}	
 		else if (equalsStringIgnoreCase(command, "MATRIX")) {
 			printf("Comando MATRIX nao implementado.\n");
@@ -171,7 +189,7 @@ void printCommandsMenu() {
 	printf("\n                          PROJECT: COVID-19                    ");
 	printf("\n===================================================================================");
 	printf("\nA. Base Commands (LOADP, LOADR, CLEAR).");
-	printf("\nB. Simple Indicators and searchs (AVERAGE, FOLLOW, MATRIX, OLDEST, RELEASED, SEX, SHOW, TOP5).");
+	printf("\nB. Simple Indicators and searchs (AVERAGE, FOLLOW, GROWTH, MATRIX, OLDEST, RELEASED, SEX, SHOW, TOP5).");
 	printf("\nC. Advanced indicator (REGIONS, REPORTS)");
 	printf("\nD. Exit (QUIT)\n\n");
 	printf("COMMAND> ");

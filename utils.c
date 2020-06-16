@@ -666,3 +666,121 @@ void patientsOLDEST(PtList listPatient){
     }
     
 }
+
+PtDate getDayBefore(PtDate date){
+
+    int dateDayBefore = 0, dateMonthBefore = 0, dateYearBefore = 0;
+
+    if(date->day-1 < 1){
+        if(date->month-1 < 1){
+            dateDayBefore = 31;
+            dateMonthBefore = 12;
+            dateYearBefore = date->year-1;
+        }
+        else if(date->month-1 == 1 || date->month-1 == 3 || date->month-1 == 5 || date->month-1 == 7 || date->month-1 == 8 || date->month-1 == 10){
+            dateDayBefore = 31;
+            dateMonthBefore = date->month-1;
+            dateYearBefore = date->year;
+        }
+        else if(date->month-1 == 4 || date->month-1 == 6 || date->month-1 == 9 || date->month-1 == 11){
+            dateDayBefore = 30;
+            dateMonthBefore = date->month-1;
+            dateYearBefore = date->year;
+        }
+        else if(date->month-1 == 2){
+            dateDayBefore = 29;
+            dateMonthBefore = date->month-1;
+            dateYearBefore = date->year;
+        }
+    }
+    else{
+        dateDayBefore = date->day-1;
+        dateMonthBefore = date->month;
+        dateYearBefore = date->year;
+    }
+
+    PtDate dayBefore = dateCreate(dateDayBefore, dateMonthBefore, dateYearBefore);
+
+    return dayBefore;
+}
+
+void patientsGROWTH(PtList listPatient, PtDate date){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+
+        patients[i] = patient;
+    }
+
+    PtDate dayBefore = getDayBefore(date);
+    PtDate confirmedDate;
+    
+    int numDeadBefore = 0;
+    int numDeadDay = 0;
+    int numIsolatedBefore = 0;
+    int numIsolatedDay = 0;
+    char status[20] = " ";
+
+    PtDate datesArray[size];
+
+    for(int j = 0; j < size; j++){
+        patientConfirmedDate(patients[j], &confirmedDate);
+        datesArray[j] = confirmedDate;
+
+        patientStatus(patients[j], status);
+        
+        if((confirmedDate->year == date->year) && (confirmedDate->month == date->month) && (confirmedDate->day == date->day))
+        {
+            if(strncmp(status, "isolated", 8) == 0)
+                numIsolatedDay++;
+
+            if(strncmp(status, "deceased", 8) == 0)
+                numDeadDay++;
+        }
+
+        if((confirmedDate->year == dayBefore->year) && (confirmedDate->month == dayBefore->month) && (confirmedDate->day == dayBefore->day)){
+            if(strncmp(status, "isolated", 8) == 0)
+                numIsolatedBefore++;
+
+            if(strncmp(status, "deceased", 8) == 0)
+                numDeadBefore++;
+        }
+    }
+
+    float rateNewInfected = (((float)numIsolatedDay-(float)numIsolatedBefore)/(float)numIsolatedBefore);
+    float rateNewDead = (((float)numDeadDay-(float)numDeadBefore)/(float)numDeadBefore);
+
+    int count = 0;
+
+    for(int k = 0; k < sizeof(datesArray) / sizeof(datesArray[0]); k++){
+        if((datesArray[k]->year == date->year) && (datesArray[k]->month == date->month) && (datesArray[k]->day == date->day))
+            count++;
+    }
+
+    if(count == 0)
+    {
+        printf("There is no record for day ");
+        datePrint(date);
+    }
+    else{
+        printf("Date: ");
+        datePrint(dayBefore);
+        printf("Number of dead: %d\n", numDeadBefore);
+        printf("Number of isolated: %d\n", numIsolatedBefore);
+
+        printf("\nDate: ");
+        datePrint(date);
+        printf("Number of dead: %d\n", numDeadDay);
+        printf("Number of isolated: %d\n", numIsolatedDay);
+
+        printf("\n");
+        printf("Rate of new infected: %.2lf\n", rateNewInfected);
+        printf("Rate of new dead: %.2lf\n", rateNewDead);
+    }
+}

@@ -130,3 +130,5 @@ void patientsTOP5(PtList listPatient);
  * @param listPatient 
  */
 void patientsOLDEST(PtList listPatient);
+
+void patientsGROWTH(PtList listPatient, PtDate date);
