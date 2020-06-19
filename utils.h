@@ -131,4 +131,14 @@ void patientsTOP5(PtList listPatient);
  */
 void patientsOLDEST(PtList listPatient);
 
+/**
+ * @brief Receives a list of patients and a specific date in order to show the growth difference between that day and the day before.
+ * 
+ * @param listPatient 
+ * @param date 
+ */
 void patientsGROWTH(PtList listPatient, PtDate date);
+
+void patientsMATRIX(PtList listPatient);
+
+void patientsREGIONS(PtList listPatient, PtMap mapRegion);

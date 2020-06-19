@@ -158,10 +158,10 @@ int main(int argc, char** argv) {
 			patientsGROWTH(patientList, dateFormat);
 		}	
 		else if (equalsStringIgnoreCase(command, "MATRIX")) {
-			printf("Comando MATRIX nao implementado.\n");
+			patientsMATRIX(patientList);
 		}
 		else if (equalsStringIgnoreCase(command, "REGIONS")) {
-			printf("Comando REGIONS nao implementado.\n");
+			patientsREGIONS(patientList, regionMap);
 		}	
 		else if (equalsStringIgnoreCase(command, "REPORT")) {
 			printf("Comando REPORT nao implementado.\n");

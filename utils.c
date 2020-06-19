@@ -784,3 +784,165 @@ void patientsGROWTH(PtList listPatient, PtDate date){
         printf("Rate of new dead: %.2lf\n", rateNewDead);
     }
 }
+
+void patientsMATRIX(PtList listPatient){
+    
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+
+        patients[i] = patient;
+    }
+
+    int age = 0;
+    char status[20] = " ";
+    int countIsolated15 = 0, countDeceased15 = 0, countReleased15 = 0;
+    int countIsolated30 = 0, countDeceased30 = 0, countReleased30 = 0;
+    int countIsolated45 = 0, countDeceased45 = 0, countReleased45 = 0;
+    int countIsolated60 = 0, countDeceased60 = 0, countReleased60 = 0;
+    int countIsolated75 = 0, countDeceased75 = 0, countReleased75 = 0;
+    int countIsolatedMax = 0, countDeceasedMax = 0, countReleasedMax = 0;
+    int disp[6][3];
+
+    for(int i = 0; i < size; i++){
+        patientAge(patients[i], &age);
+        patientStatus(patients[i], status);
+
+        if(strncmp(status, "isolated", 8) == 0) {
+            if(age >= 0 && age <= 15)
+                countIsolated15++;
+            else if (age >= 16 && age <= 30)
+                countIsolated30++;
+            else if (age >= 31 && age <= 45)
+                countIsolated45++;
+            else if (age >= 46 && age <= 60)
+                countIsolated60++;
+            else if (age >= 61 && age <= 75)
+                countIsolated75++;
+            else if (age >= 76)
+                countIsolatedMax++;
+
+        } else if(strncmp(status, "released", 8) == 0) {
+            if(age >= 0 && age <= 15)
+                countReleased15++;
+            else if (age >= 16 && age <= 30)
+                countReleased30++;
+            else if (age >= 31 && age <= 45)
+                countReleased45++;
+            else if (age >= 46 && age <= 60)
+                countReleased60++;
+            else if (age >= 61 && age <= 75)
+                countReleased75++;
+            else if (age >= 76)
+                countReleasedMax++;
+
+        } else if(strncmp(status, "deceased", 8) == 0) {
+            if(age >= 0 && age <= 15)
+                countDeceased15++;
+            else if (age >= 16 && age <= 30)
+                countDeceased30++;
+            else if (age >= 31 && age <= 45)
+                countDeceased45++;
+            else if (age >= 46 && age <= 60)
+                countDeceased60++;
+            else if (age >= 61 && age <= 75)
+                countDeceased75++;
+            else if (age >= 76)
+                countDeceasedMax++;
+        }
+
+    }
+
+    disp[0][0] = countIsolated15;
+    disp[0][1] = countDeceased15;
+    disp[0][2] = countReleased15;
+
+    disp[1][0] = countIsolated30;
+    disp[1][1] = countDeceased30;
+    disp[1][2] = countReleased30;
+
+    disp[2][0] = countIsolated45;
+    disp[2][1] = countDeceased45;
+    disp[2][2] = countReleased45;
+
+    disp[3][0] = countIsolated60;
+    disp[3][1] = countDeceased60;
+    disp[3][2] = countReleased60;
+
+    disp[4][0] = countIsolated75;
+    disp[4][1] = countDeceased75;
+    disp[4][2] = countReleased75;
+
+    disp[5][0] = countIsolatedMax;
+    disp[5][1] = countDeceasedMax;
+    disp[5][2] = countReleasedMax;
+
+    for(int i = 0; i < 6; i++){
+        for(int j = 0; j < 3; j++){
+            printf("%d\t", disp[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void patientsREGIONS(PtList listPatient, PtMap mapRegion){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patient;
+
+    int regionsSize = size;
+
+    char *keys[regionsSize];
+    char strRegion[50] = " ";
+    char status[20] = " ";
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+        patientRegion(patient, strRegion);
+        patientStatus(patient, status);
+
+        if(strncmp(status, "isolated", 8) == 0) {
+            printf("Hello0");
+            strcpy(keys[i], strRegion);
+            printf("Hello1");
+        }
+    }
+
+    printf("Hello");
+
+    MapKey temp;
+    for (int i = 0; i < regionsSize; i++){
+        for (int j = i + 1; j < regionsSize; j++){
+            if(strcmp(keys[i], keys[j]) > 0){
+                strcpy(temp, keys[i]);
+                strcpy(keys[i], keys[j]);
+                strcpy(keys[j], temp);
+            }
+        }
+    }
+
+    printf("Hello2");
+
+    /*for(int i = 0; i< regionsSize; i++){
+        for(int j = i+1; j< regionsSize; j++){
+            if(mapKeyEquals(keys[i], keys[j])){
+                for(int k = j; k < regionsSize; k++){
+                    keys[k] = keys[k+1];
+                }
+                regionsSize--;
+                j--;
+            }
+        }
+    }*/
+
+    for(int i = 0; i < regionsSize; i++){
+        mapKeyPrint(keys[i]);
+    }
+}
