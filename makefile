@@ -1,2 +1,2 @@
-n1:
+build:
 	gcc -g -o prog *.c -lm

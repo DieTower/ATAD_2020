@@ -12,7 +12,6 @@
 #include <locale.h>
 
 #include "utils.h"
-//#include "list.h"
 #include "map.h"
 
 typedef char String[255];
@@ -26,18 +25,6 @@ void printCommandsMenu();
 * Descrição do Programa
 */
 int main(int argc, char** argv) {
-
-	// PtMap mapList = mapCreate(1024);
-	
-	// importRegionsFromFile("regions.csv", &mapList);
-	// mapPrint(mapList);
-
-	// mapDestroy(&mapList);
-
-	// PtList list = listCreate(1024);
-	// importPatientsFromFile("patients.csv", &list);
-	// listPrint(list);
-	// listDestroy(&list);
 
 	/* declaracao de variaveis */
 	PtList patientList = listCreate(1024);
