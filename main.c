@@ -189,7 +189,7 @@ void printCommandsMenu() {
 	printf("\n                          PROJECT: COVID-19                    ");
 	printf("\n===================================================================================");
 	printf("\nA. Base Commands (LOADP, LOADR, CLEAR).");
-	printf("\nB. Simple Indicators and searchs (AVERAGE, FOLLOW, GROWTH, MATRIX, OLDEST, RELEASED, SEX, SHOW, TOP5).");
+	printf("\nB. Simple Indicators and searchs (AVERAGE, FOLLOW, SEX, SHOW, TOP5, OLDEST, GROWTH, MATRIX).");
 	printf("\nC. Advanced indicator (REGIONS, REPORTS)");
 	printf("\nD. Exit (QUIT)\n\n");
 	printf("COMMAND> ");

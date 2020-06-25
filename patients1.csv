@@ -1,0 +1,48 @@
+patient_id;sex;birth_year;country;province;infection_case;infected_by;confirmed_date;released_date;deceased_date;state
+1000000013;male;1938;Korea;Seoul;contact with patient;1000000017;16/02/2020;;;released
+1000000014;female;1952;Korea;Seoul;contact with patient;1000000013;16/02/2020;12/03/2020;;released
+1000000015;male;1943;Korea;Seoul;Seongdong-gu APT;;19/02/2020;;;isolated
+1000000016;male;1945;Korea;Seoul;contact with patient;1000000017;19/02/2020;11/03/2020;;released
+1000000017;male;1944;Korea;Seoul;contact with patient;1000000003;20/02/2020;01/03/2020;;released
+1000000018;male;2000;Korea;Seoul;etc;;20/02/2020;;;isolated
+1000000019;female;1941;Korea;Seoul;contact with patient;1000000021;20/02/2020;08/03/2020;;released
+1000000020;female;1944;Korea;Seoul;Seongdong-gu APT;1000000015;20/02/2020;;;isolated
+1000000021;male;1936;Korea;Seoul;contact with patient;1000000016;20/02/2020;08/03/2020;;released
+1000000022;male;1985;Korea;Seoul;Eunpyeong St. Mary's Hospital;;21/02/2020;;;isolated
+1000000023;male;1961;Korea;Seoul;Shincheonji Church;;21/02/2020;;;isolated
+1000000024;male;1980;Korea;Seoul;contact with patient;;22/02/2020;14/03/2020;;released
+1000000025;male;1958;Korea;Seoul;Eunpyeong St. Mary's Hospital;1000000022;22/02/2020;;;isolated
+1000000026;male;1986;Korea;Seoul;etc;;22/02/2020;11/03/2020;;released
+1000000027;male;1968;Korea;Seoul;overseas inflow;;23/02/2020;04/03/2020;;released
+1000000028;female;1950;Korea;Seoul;Eunpyeong St. Mary's Hospital;;23/02/2020;11/03/2020;;released
+1000000029;female;1995;Korea;Seoul;Eunpyeong St. Mary's Hospital;1000000028;26/02/2020;11/03/2020;;released
+1000000030;male;1954;China;Seoul;Eunpyeong St. Mary's Hospital;;23/02/2020;;;released
+1000000031;male;1965;Korea;Seoul;etc;;22/02/2020;19/03/2020;;released
+1000000032;male;1962;Korea;Seoul;contact with patient;;23/02/2020;;;isolated
+1000000033;female;1970;Korea;Seoul;contact with patient;1000000031;24/02/2020;10/03/2020;;released
+1000000034;male;2000;Korea;Seoul;contact with patient;1000000031;24/02/2020;17/03/2020;;released
+1000000035;male;1984;Korea;Seoul;etc;;25/02/2020;20/03/2020;;released
+1000000036;female;1963;Korea;Seoul;Eunpyeong St. Mary's Hospital;;25/02/2020;;;isolated
+1000000037;female;1976;Korea;Seoul;contact with patient;1000000031;25/02/2020;11/03/2020;;released
+1000000038;male;1953;Korea;Seoul;etc;;25/02/2020;;;isolated
+1000000039;female;1945;China;Jeollabuk-do;overseas inflow;;25/02/2020;;;released
+1000000040;female;1960;Korea;Seoul;overseas inflow;1500000002;25/02/2020;;;released
+1000000041;male;1968;Korea;Seoul;etc;;25/02/2020;04/03/2020;;released
+1000000042;male;1977;Korea;Seoul;etc;;26/02/2020;;;isolated
+1000000043;female;1995;Korea;Seoul;overseas inflow;;26/02/2020;;;released
+1000000044;male;1958;Korea;Seoul;contact with patient;;26/02/2020;;;isolated
+1000000045;male;1979;Korea;Busan;contact with patient;1000000033;26/02/2020;04/03/2020;;released
+1000000046;female;1999;Korea;Seoul;contact with patient;1000000041;26/02/2020;03/03/2020;;released
+1000000047;male;1993;Korea;Seoul;Shincheonji Church;;26/02/2020;11/03/2020;;released
+1000000048;female;1995;Korea;Seoul;etc;;26/02/2020;13/03/2020;;released
+1000000049;male;1956;Korea;Busan;Eunpyeong St. Mary's Hospital;;26/02/2020;;;isolated
+1000000050;male;1994;Korea;Seoul;etc;;27/02/2020;;;isolated
+1000000051;female;1992;Korea;Seoul;etc;;27/02/2020;03/03/2020;;released
+1000000052;male;1984;Korea;Busan;overseas inflow;;27/02/2020;03/03/2020;;released
+1000000053;female;1973;Korea;Seoul;Eunpyeong St. Mary's Hospital;1000000054;27/02/2020;17/03/2020;;released
+1000000054;female;1937;Korea;Seoul;Eunpyeong St. Mary's Hospital;;27/02/2020;;;isolated
+1000000055;female;1993;Korea;Jeollabuk-do;Eunpyeong St. Mary's Hospital;;27/02/2020;03/03/2020;;released
+1000000056;male;1962;Korea;Seoul;etc;;27/02/2020;13/03/2020;;released
+1000000057;female;1946;Korea;Seoul;Eunpyeong St. Mary's Hospital;;27/02/2020;;;released
+1000000058;female;1990;Korea;Jeollabuk-do;etc;;27/02/2020;;;isolated
+1000000059;female;1954;Korea;Jeollabuk-do;Eunpyeong St. Mary's Hospital;1000000060;28/02/2020;;;isolated

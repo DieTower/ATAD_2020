@@ -94,7 +94,7 @@ int mapDestroy(PtMap *ptMap) {
 	PtNode current = map->header->next;
     while(current != map->trailer) {
         current = current->next;
-		free(current->prev->element.key);
+		//free(current->prev->element.key);
 		free(current->prev->element.value);
         free(current->prev);
     }

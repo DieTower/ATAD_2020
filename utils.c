@@ -95,7 +95,7 @@ void splitJoin(char *str, const char *delim, char *res) {
     free(tokens);
 }
 
-MapKey keyCreate(char str[100]) {
+/*MapKey stringCodeCreate(char str[100]) {
     MapKey key = (MapKey) calloc(1, sizeof(char[100]));
 
     if(key == NULL) return NULL;
@@ -115,7 +115,7 @@ int keyDestroy(MapKey *c) {
     *c = NULL;
 
     return REGION_OK;
-}
+}*/
 
 void importRegionsFromFile(char * filename, PtMap *mapRegion) {
     FILE *f = NULL;
@@ -152,7 +152,7 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion) {
         // tokens[2] = area
         // tokens[3] = populpation
         
-        MapKey key = keyCreate(tokens[0]);
+        MapKey key = stringCodeCreate(tokens[0]);
         
         // Population
         char population[100] = " ";
@@ -324,7 +324,7 @@ int regionFromPatient(PtMap m, PtPatient p, PtRegion *r) {
 
     char k[50] = " ";
     patientRegion(p, k);
-    MapKey key = keyCreate(k);
+    MapKey key = stringCodeCreate(k);
 
     PtRegion region = *r;
     mapGet(m, key, &region);
@@ -807,7 +807,6 @@ void patientsMATRIX(PtList listPatient){
     int countIsolated60 = 0, countDeceased60 = 0, countReleased60 = 0;
     int countIsolated75 = 0, countDeceased75 = 0, countReleased75 = 0;
     int countIsolatedMax = 0, countDeceasedMax = 0, countReleasedMax = 0;
-    int disp[6][3];
 
     for(int i = 0; i < size; i++){
         patientAge(patients[i], &age);
@@ -858,6 +857,8 @@ void patientsMATRIX(PtList listPatient){
 
     }
 
+    int disp[6][3];
+
     disp[0][0] = countIsolated15;
     disp[0][1] = countDeceased15;
     disp[0][2] = countReleased15;
@@ -882,10 +883,27 @@ void patientsMATRIX(PtList listPatient){
     disp[5][1] = countDeceasedMax;
     disp[5][2] = countReleasedMax;
 
+    printf("\t\tIsolated\t\tDeceased\t\tReleased\n");
+
+    int countLine = 0;
     for(int i = 0; i < 6; i++){
+        if(countLine == 0)
+            printf("[0-15]");
+        if(countLine == 1)
+            printf("[16-30]");
+        if(countLine == 2)
+            printf("[31-45]");
+        if(countLine == 3)
+            printf("[46-60]");
+        if(countLine == 4)
+            printf("[61-75]");
+        if(countLine == 5)
+            printf("[76...]");
         for(int j = 0; j < 3; j++){
-            printf("%d\t", disp[i][j]);
+            printf("\t\t%d\t", disp[i][j]);
+            
         }
+        countLine+=1;
         printf("\n");
     }
 }
@@ -899,9 +917,10 @@ void patientsREGIONS(PtList listPatient, PtMap mapRegion){
 
     int regionsSize = size;
 
-    char *keys[regionsSize];
+    char **keys = (char**) malloc(sizeof(char*) * regionsSize);
     char strRegion[50] = " ";
     char status[20] = " ";
+    int count = 0;
 
     for(int i = 0; i < size; i++){
         listGet(listPatient, i, &patient);
@@ -909,40 +928,85 @@ void patientsREGIONS(PtList listPatient, PtMap mapRegion){
         patientStatus(patient, status);
 
         if(strncmp(status, "isolated", 8) == 0) {
-            printf("Hello0");
-            strcpy(keys[i], strRegion);
-            printf("Hello1");
+            keys[count] = (char*) malloc(sizeof(char) * 250);
+            strcpy(keys[count], strRegion);
+            count++;
         }
     }
 
-    printf("Hello");
-
     MapKey temp;
-    for (int i = 0; i < regionsSize; i++){
-        for (int j = i + 1; j < regionsSize; j++){
-            if(strcmp(keys[i], keys[j]) > 0){
-                strcpy(temp, keys[i]);
-                strcpy(keys[i], keys[j]);
-                strcpy(keys[j], temp);
+    for (int i = 0; i < count; i++){
+        for (int j = 0; j < count-1; j++){
+            if(strcmp(keys[j], keys[j+1]) > 0){
+                strcpy(temp.code, keys[j]);
+                strcpy(keys[j], keys[j+1]);
+                strcpy(keys[j+1], temp.code);
             }
         }
     }
 
-    printf("Hello2");
-
-    /*for(int i = 0; i< regionsSize; i++){
-        for(int j = i+1; j< regionsSize; j++){
-            if(mapKeyEquals(keys[i], keys[j])){
-                for(int k = j; k < regionsSize; k++){
+    for(int i = 0; i< count; i++){
+        for(int j = i+1; j< count; j++){
+            if(strcmp(keys[i], keys[j]) == 0){
+                for(int k = j; k < count; k++){
                     keys[k] = keys[k+1];
                 }
-                regionsSize--;
+                count--;
                 j--;
             }
         }
-    }*/
-
-    for(int i = 0; i < regionsSize; i++){
-        mapKeyPrint(keys[i]);
     }
+
+    for(int i = 0; i < count; i++){
+        printf("%s\n", keys[i]);
+    }
+
+    for(int i = 0; i < count; i++){
+        free(keys[i]);
+    }
+    
+    free(keys);
+}
+
+void patientsREPORT(PtList listPatient, PtMap mapRegion){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+    PtMap countries = mapCreate(10);
+    char strRegion[50] = " ";
+    
+    char **regions = (char**) malloc(sizeof(char*) * size);
+    int count = 0;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+        patientRegion(patient, strRegion);
+
+        patients[i] = patient;
+
+        regions[count] = (char*) malloc(sizeof(char) * 250);
+        strcpy(regions[count], strRegion);
+        count++;
+    }
+
+    
+    for(int i = 0; i < size; i++){
+        patientCountry()
+    }
+
+    FILE *f = NULL;
+
+    f = fopen("report.txt", "a");
+
+    if(f == NULL) {
+        // printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
+        printf("Report not created ");
+        return;
+    }
+
+    
+
 }

@@ -59,7 +59,7 @@ void splitJoin(char *str, const char *delim, char *res);
  * @param str 
  * @return MapKey 
  */
-MapKey keyCreate(char str[100]);
+//MapKey keyCreate(char str[100]);
 
 /**
  * @brief Destroy a Mapkey allocated
@@ -67,7 +67,7 @@ MapKey keyCreate(char str[100]);
  * @param c 
  * @return int 
  */
-int keyDestroy(MapKey *c);
+//int keyDestroy(MapKey *c);
 
 /**
  * @brief Populate a patient list 
@@ -139,6 +139,19 @@ void patientsOLDEST(PtList listPatient);
  */
 void patientsGROWTH(PtList listPatient, PtDate date);
 
+/**
+ * @brief Receives a list of patients and returns a matrix with the information about the total of isolated, deceased and released.
+ * 
+ * @param listPatient 
+ */
 void patientsMATRIX(PtList listPatient);
 
+/**
+ * @brief Receives a list of patients and a map of regions, order the regions of the infected in order asc..
+ * 
+ * @param listPatient 
+ * @param mapRegion 
+ */
 void patientsREGIONS(PtList listPatient, PtMap mapRegion);
+
+void patientsREPORT(PtList listPatient, PtMap mapRegion);
