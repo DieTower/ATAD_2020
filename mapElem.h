@@ -17,11 +17,12 @@
 #pragma once
 
 #include "region.h"
+#include "stringCode.h"
 
 #include <stdbool.h>
 
 /** Key type definition. Change according to the use-case. */
-typedef char* MapKey;
+typedef StringCode MapKey;
 
 /** Value type definition. Change according to the use-case. */
 typedef PtRegion MapValue;

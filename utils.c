@@ -95,7 +95,7 @@ void splitJoin(char *str, const char *delim, char *res) {
     free(tokens);
 }
 
-MapKey keyCreate(char str[100]) {
+/*MapKey stringCodeCreate(char str[100]) {
     MapKey key = (MapKey) calloc(1, sizeof(char[100]));
 
     if(key == NULL) return NULL;
@@ -115,7 +115,7 @@ int keyDestroy(MapKey *c) {
     *c = NULL;
 
     return REGION_OK;
-}
+}*/
 
 void importRegionsFromFile(char * filename, PtMap *mapRegion) {
     FILE *f = NULL;
@@ -152,7 +152,7 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion) {
         // tokens[2] = area
         // tokens[3] = populpation
         
-        MapKey key = keyCreate(tokens[0]);
+        MapKey key = stringCodeCreate(tokens[0]);
         
         // Population
         char population[100] = " ";
@@ -324,7 +324,7 @@ int regionFromPatient(PtMap m, PtPatient p, PtRegion *r) {
 
     char k[50] = " ";
     patientRegion(p, k);
-    MapKey key = keyCreate(k);
+    MapKey key = stringCodeCreate(k);
 
     PtRegion region = *r;
     mapGet(m, key, &region);
@@ -531,4 +531,482 @@ void patientsSHOW(PtList listPatient, long int id) {
     }
 
     printf("NUMBER OF DAYS WITH ILLNESS: %s\n", buffer);
+}
+
+void patientsTOP5(PtList listPatient){
+    
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patient;
+    ListElem patients[size];
+    ListElem a;
+
+    PtDate date1, date2, date3, date4;
+
+    int day = 0;
+    int day2 = 0;
+    int age, age2;
+
+    for(int k = 0; k < size; k++){
+        listGet(listPatient, k, &patient);
+
+        patients[k] = patient;
+    }
+
+    for (int i = 0; i < size; ++i) 
+    {
+        for (int j = i + 1; j < size; ++j) 
+        {
+            patientConfirmedDate(patients[i], &date1);
+            patientReleasedDate(patients[i], &date2);
+
+            diffDates(date1, date2, &day);
+
+            patientConfirmedDate(patients[j], &date3);
+            patientReleasedDate(patients[j], &date4);
+
+            diffDates(date3, date4, &day2);
+
+            if (day < day2) 
+            {
+                a = patients[i];
+                patients[i] = patients[j];
+                patients[j] = a;
+            }
+            else if(day == day2){
+                patientAge(patients[i], &age);
+                patientAge(patients[j], &age2);
+
+                if(age < age2){
+                    a = patients[i];
+                    patients[i] = patients[j];
+                    patients[j] = a;
+                }
+            }
+        }
+    }
+
+    long int patient_id = 0;
+
+    for(int l = 0; l < 5; l++){
+        patientId(patients[l], &patient_id);
+        patientsSHOW(listPatient, patient_id);
+        printf("\n");
+    }
+}
+
+void patientsOLDEST(PtList listPatient){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+
+        patients[i] = patient;
+    }
+
+    char sex[20] = " ";
+    int yearMale, yearFemale;
+    long int maxYearMale = 9999;
+    long int maxYearFemale = 9999;
+
+    for(int j = 0; j < size; j++){
+        patientSex(patients[j], sex);
+
+        if(strncmp(sex, "male", 8) == 0){
+            patientBithYear(patients[j], &yearMale);
+
+            if((yearMale < maxYearMale) && (yearMale != -1))
+                maxYearMale = yearMale;
+        }
+
+        if(strncmp(sex, "female", 8) == 0){
+            patientBithYear(patients[j], &yearFemale);
+
+            if((yearFemale < maxYearFemale) && (yearFemale != -1))
+                maxYearFemale = yearFemale;
+        }
+    }
+
+    int numF = 1;
+    printf("FEMALES:\n");
+    for(int k = 0; k < size; k++){
+        patientBithYear(patients[k], &yearFemale);
+        patientSex(patients[k], sex);
+
+        if(strncmp(sex, "female", 8) == 0){
+            if(yearFemale == maxYearFemale)
+            {
+                printf("%d - ", numF);
+                patientDirectedPrint(patients[k], 'h');
+                numF++;
+            }
+        }
+    }
+
+    int numM = 1;
+    printf("MALES:\n");
+    for(int l = 0; l < size; l++){
+        patientBithYear(patients[l], &yearMale);
+        patientSex(patients[l], sex);
+
+        if(strncmp(sex, "male", 8) == 0){
+            if(yearMale == maxYearMale)
+            {
+                printf("%d - ", numM);
+                patientDirectedPrint(patients[l], 'h');
+                numM++;
+            }
+        }
+    }
+    
+}
+
+PtDate getDayBefore(PtDate date){
+
+    int dateDayBefore = 0, dateMonthBefore = 0, dateYearBefore = 0;
+
+    if(date->day-1 < 1){
+        if(date->month-1 < 1){
+            dateDayBefore = 31;
+            dateMonthBefore = 12;
+            dateYearBefore = date->year-1;
+        }
+        else if(date->month-1 == 1 || date->month-1 == 3 || date->month-1 == 5 || date->month-1 == 7 || date->month-1 == 8 || date->month-1 == 10){
+            dateDayBefore = 31;
+            dateMonthBefore = date->month-1;
+            dateYearBefore = date->year;
+        }
+        else if(date->month-1 == 4 || date->month-1 == 6 || date->month-1 == 9 || date->month-1 == 11){
+            dateDayBefore = 30;
+            dateMonthBefore = date->month-1;
+            dateYearBefore = date->year;
+        }
+        else if(date->month-1 == 2){
+            dateDayBefore = 29;
+            dateMonthBefore = date->month-1;
+            dateYearBefore = date->year;
+        }
+    }
+    else{
+        dateDayBefore = date->day-1;
+        dateMonthBefore = date->month;
+        dateYearBefore = date->year;
+    }
+
+    PtDate dayBefore = dateCreate(dateDayBefore, dateMonthBefore, dateYearBefore);
+
+    return dayBefore;
+}
+
+void patientsGROWTH(PtList listPatient, PtDate date){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+
+        patients[i] = patient;
+    }
+
+    PtDate dayBefore = getDayBefore(date);
+    PtDate confirmedDate;
+    
+    int numDeadBefore = 0;
+    int numDeadDay = 0;
+    int numIsolatedBefore = 0;
+    int numIsolatedDay = 0;
+    char status[20] = " ";
+
+    PtDate datesArray[size];
+
+    for(int j = 0; j < size; j++){
+        patientConfirmedDate(patients[j], &confirmedDate);
+        datesArray[j] = confirmedDate;
+
+        patientStatus(patients[j], status);
+        
+        if((confirmedDate->year == date->year) && (confirmedDate->month == date->month) && (confirmedDate->day == date->day))
+        {
+            if(strncmp(status, "isolated", 8) == 0)
+                numIsolatedDay++;
+
+            if(strncmp(status, "deceased", 8) == 0)
+                numDeadDay++;
+        }
+
+        if((confirmedDate->year == dayBefore->year) && (confirmedDate->month == dayBefore->month) && (confirmedDate->day == dayBefore->day)){
+            if(strncmp(status, "isolated", 8) == 0)
+                numIsolatedBefore++;
+
+            if(strncmp(status, "deceased", 8) == 0)
+                numDeadBefore++;
+        }
+    }
+
+    float rateNewInfected = (((float)numIsolatedDay-(float)numIsolatedBefore)/(float)numIsolatedBefore);
+    float rateNewDead = (((float)numDeadDay-(float)numDeadBefore)/(float)numDeadBefore);
+
+    int count = 0;
+
+    for(int k = 0; k < sizeof(datesArray) / sizeof(datesArray[0]); k++){
+        if((datesArray[k]->year == date->year) && (datesArray[k]->month == date->month) && (datesArray[k]->day == date->day))
+            count++;
+    }
+
+    if(count == 0)
+    {
+        printf("There is no record for day ");
+        datePrint(date);
+    }
+    else{
+        printf("Date: ");
+        datePrint(dayBefore);
+        printf("Number of dead: %d\n", numDeadBefore);
+        printf("Number of isolated: %d\n", numIsolatedBefore);
+
+        printf("\nDate: ");
+        datePrint(date);
+        printf("Number of dead: %d\n", numDeadDay);
+        printf("Number of isolated: %d\n", numIsolatedDay);
+
+        printf("\n");
+        printf("Rate of new infected: %.2lf\n", rateNewInfected);
+        printf("Rate of new dead: %.2lf\n", rateNewDead);
+    }
+}
+
+void patientsMATRIX(PtList listPatient){
+    
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+
+        patients[i] = patient;
+    }
+
+    int age = 0;
+    char status[20] = " ";
+    int countIsolated15 = 0, countDeceased15 = 0, countReleased15 = 0;
+    int countIsolated30 = 0, countDeceased30 = 0, countReleased30 = 0;
+    int countIsolated45 = 0, countDeceased45 = 0, countReleased45 = 0;
+    int countIsolated60 = 0, countDeceased60 = 0, countReleased60 = 0;
+    int countIsolated75 = 0, countDeceased75 = 0, countReleased75 = 0;
+    int countIsolatedMax = 0, countDeceasedMax = 0, countReleasedMax = 0;
+
+    for(int i = 0; i < size; i++){
+        patientAge(patients[i], &age);
+        patientStatus(patients[i], status);
+
+        if(strncmp(status, "isolated", 8) == 0) {
+            if(age >= 0 && age <= 15)
+                countIsolated15++;
+            else if (age >= 16 && age <= 30)
+                countIsolated30++;
+            else if (age >= 31 && age <= 45)
+                countIsolated45++;
+            else if (age >= 46 && age <= 60)
+                countIsolated60++;
+            else if (age >= 61 && age <= 75)
+                countIsolated75++;
+            else if (age >= 76)
+                countIsolatedMax++;
+
+        } else if(strncmp(status, "released", 8) == 0) {
+            if(age >= 0 && age <= 15)
+                countReleased15++;
+            else if (age >= 16 && age <= 30)
+                countReleased30++;
+            else if (age >= 31 && age <= 45)
+                countReleased45++;
+            else if (age >= 46 && age <= 60)
+                countReleased60++;
+            else if (age >= 61 && age <= 75)
+                countReleased75++;
+            else if (age >= 76)
+                countReleasedMax++;
+
+        } else if(strncmp(status, "deceased", 8) == 0) {
+            if(age >= 0 && age <= 15)
+                countDeceased15++;
+            else if (age >= 16 && age <= 30)
+                countDeceased30++;
+            else if (age >= 31 && age <= 45)
+                countDeceased45++;
+            else if (age >= 46 && age <= 60)
+                countDeceased60++;
+            else if (age >= 61 && age <= 75)
+                countDeceased75++;
+            else if (age >= 76)
+                countDeceasedMax++;
+        }
+
+    }
+
+    int disp[6][3];
+
+    disp[0][0] = countIsolated15;
+    disp[0][1] = countDeceased15;
+    disp[0][2] = countReleased15;
+
+    disp[1][0] = countIsolated30;
+    disp[1][1] = countDeceased30;
+    disp[1][2] = countReleased30;
+
+    disp[2][0] = countIsolated45;
+    disp[2][1] = countDeceased45;
+    disp[2][2] = countReleased45;
+
+    disp[3][0] = countIsolated60;
+    disp[3][1] = countDeceased60;
+    disp[3][2] = countReleased60;
+
+    disp[4][0] = countIsolated75;
+    disp[4][1] = countDeceased75;
+    disp[4][2] = countReleased75;
+
+    disp[5][0] = countIsolatedMax;
+    disp[5][1] = countDeceasedMax;
+    disp[5][2] = countReleasedMax;
+
+    printf("\t\tIsolated\t\tDeceased\t\tReleased\n");
+
+    int countLine = 0;
+    for(int i = 0; i < 6; i++){
+        if(countLine == 0)
+            printf("[0-15]");
+        if(countLine == 1)
+            printf("[16-30]");
+        if(countLine == 2)
+            printf("[31-45]");
+        if(countLine == 3)
+            printf("[46-60]");
+        if(countLine == 4)
+            printf("[61-75]");
+        if(countLine == 5)
+            printf("[76...]");
+        for(int j = 0; j < 3; j++){
+            printf("\t\t%d\t", disp[i][j]);
+            
+        }
+        countLine+=1;
+        printf("\n");
+    }
+}
+
+void patientsREGIONS(PtList listPatient, PtMap mapRegion){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patient;
+
+    int regionsSize = size;
+
+    char **keys = (char**) malloc(sizeof(char*) * regionsSize);
+    char strRegion[50] = " ";
+    char status[20] = " ";
+    int count = 0;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+        patientRegion(patient, strRegion);
+        patientStatus(patient, status);
+
+        if(strncmp(status, "isolated", 8) == 0) {
+            keys[count] = (char*) malloc(sizeof(char) * 250);
+            strcpy(keys[count], strRegion);
+            count++;
+        }
+    }
+
+    MapKey temp;
+    for (int i = 0; i < count; i++){
+        for (int j = 0; j < count-1; j++){
+            if(strcmp(keys[j], keys[j+1]) > 0){
+                strcpy(temp.code, keys[j]);
+                strcpy(keys[j], keys[j+1]);
+                strcpy(keys[j+1], temp.code);
+            }
+        }
+    }
+
+    for(int i = 0; i< count; i++){
+        for(int j = i+1; j< count; j++){
+            if(strcmp(keys[i], keys[j]) == 0){
+                for(int k = j; k < count; k++){
+                    keys[k] = keys[k+1];
+                }
+                count--;
+                j--;
+            }
+        }
+    }
+
+    for(int i = 0; i < count; i++){
+        printf("%s\n", keys[i]);
+    }
+
+    for(int i = 0; i < count; i++){
+        free(keys[i]);
+    }
+    
+    free(keys);
+}
+
+void patientsREPORT(PtList listPatient, PtMap mapRegion){
+
+    int size = 0;
+    listSize(listPatient, &size);
+
+    ListElem patients[size];
+    ListElem patient;
+    PtMap countries = mapCreate(10);
+    char strRegion[50] = " ";
+    
+    char **regions = (char**) malloc(sizeof(char*) * size);
+    int count = 0;
+
+    for(int i = 0; i < size; i++){
+        listGet(listPatient, i, &patient);
+        patientRegion(patient, strRegion);
+
+        patients[i] = patient;
+
+        regions[count] = (char*) malloc(sizeof(char) * 250);
+        strcpy(regions[count], strRegion);
+        count++;
+    }
+
+    
+    for(int i = 0; i < size; i++){
+        patientCountry()
+    }
+
+    FILE *f = NULL;
+
+    f = fopen("report.txt", "a");
+
+    if(f == NULL) {
+        // printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
+        printf("Report not created ");
+        return;
+    }
+
+    
+
 }

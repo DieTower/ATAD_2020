@@ -37,7 +37,7 @@ void upperCase(char *str1, char *str2);
 char** split(char *string, int nFields, const char *delim);
 
 /**
- * @brief Count how many charecters in one "string" are equal to the char inserted
+ * @brief Count how many caracters in one "string" are equal to the char inserted
  * 
  * @param str 
  * @param c 
@@ -59,7 +59,7 @@ void splitJoin(char *str, const char *delim, char *res);
  * @param str 
  * @return MapKey 
  */
-MapKey keyCreate(char str[100]);
+//MapKey keyCreate(char str[100]);
 
 /**
  * @brief Destroy a Mapkey allocated
@@ -67,7 +67,7 @@ MapKey keyCreate(char str[100]);
  * @param c 
  * @return int 
  */
-int keyDestroy(MapKey *c);
+//int keyDestroy(MapKey *c);
 
 /**
  * @brief Populate a patient list 
@@ -86,7 +86,7 @@ void importPatientsFromFile(char * filename, PtList *listPatient);
 void importRegionsFromFile(char * filename, PtMap *mapRegion);
 
 /**
- * @brief Finds the number of patients infecteds imported
+ * @brief Finds the number of patients infected imported
  * 
  * @param listPatient [in]
  * @param status [in]
@@ -110,9 +110,48 @@ void patientsFOLLOW(PtList listPatient, long int id);
 void patientsSEX(PtList listPatient, char *sex);
 
 /**
- * @brief Insert a id and print a patient lincked with this id
+ * @brief Insert an id and print a patient with the given id
  * 
  * @param listPatient 
  * @param id 
  */
 void patientsSHOW(PtList listPatient, long int id);
+
+/**
+ * @brief Receives a list of patients and returns the 5 who took the longest to recover
+ * 
+ * @param listPatient 
+ */
+void patientsTOP5(PtList listPatient);
+
+/**
+ * @brief Receives a list of patients and shows the oldest of each sex
+ * 
+ * @param listPatient 
+ */
+void patientsOLDEST(PtList listPatient);
+
+/**
+ * @brief Receives a list of patients and a specific date in order to show the growth difference between that day and the day before.
+ * 
+ * @param listPatient 
+ * @param date 
+ */
+void patientsGROWTH(PtList listPatient, PtDate date);
+
+/**
+ * @brief Receives a list of patients and returns a matrix with the information about the total of isolated, deceased and released.
+ * 
+ * @param listPatient 
+ */
+void patientsMATRIX(PtList listPatient);
+
+/**
+ * @brief Receives a list of patients and a map of regions, order the regions of the infected in order asc..
+ * 
+ * @param listPatient 
+ * @param mapRegion 
+ */
+void patientsREGIONS(PtList listPatient, PtMap mapRegion);
+
+void patientsREPORT(PtList listPatient, PtMap mapRegion);
