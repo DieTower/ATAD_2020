@@ -16,8 +16,8 @@
 
 StringCode stringCodeCreate(char *str){
     StringCode newCode;
-
     strcpy(newCode.code, str);
+    return newCode;
 }
 
 void stringCodePrint(StringCode strCode){

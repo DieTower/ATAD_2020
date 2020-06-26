@@ -993,9 +993,9 @@ void patientsREPORT(PtList listPatient, PtMap mapRegion){
     }
 
     
-    for(int i = 0; i < size; i++){
-        patientCountry()
-    }
+    // for(int i = 0; i < size; i++){
+    //     patientCountry();
+    // }
 
     FILE *f = NULL;
 

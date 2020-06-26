@@ -154,4 +154,10 @@ void patientsMATRIX(PtList listPatient);
  */
 void patientsREGIONS(PtList listPatient, PtMap mapRegion);
 
+/**
+ * @brief 
+ * 
+ * @param listPatient 
+ * @param mapRegion 
+ */
 void patientsREPORT(PtList listPatient, PtMap mapRegion);
