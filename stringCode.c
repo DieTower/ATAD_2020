@@ -14,12 +14,23 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * @brief This function will create a string code and return it
+ * 
+ * @param str 
+ * @return StringCode 
+ */
 StringCode stringCodeCreate(char *str){
     StringCode newCode;
     strcpy(newCode.code, str);
     return newCode;
 }
 
+/**
+ * @brief This function will print a given string code
+ * 
+ * @param strCode 
+ */
 void stringCodePrint(StringCode strCode){
     printf("%s", strCode.code);
 }

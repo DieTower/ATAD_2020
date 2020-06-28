@@ -105,6 +105,7 @@ int main(int argc, char** argv) {
 			patientsSEX(patientList, "female");
 			patientsSEX(patientList, "male");
 			patientsSEX(patientList, "unknown");
+			printf("Total of patients: %d", getCountPatients(patientList));
 		}
 		else if (equalsStringIgnoreCase(command, "SHOW")) {
 			
@@ -177,7 +178,7 @@ void printCommandsMenu() {
 	printf("\n===================================================================================");
 	printf("\nA. Base Commands (LOADP, LOADR, CLEAR).");
 	printf("\nB. Simple Indicators and searchs (AVERAGE, FOLLOW, SEX, SHOW, TOP5, OLDEST, GROWTH, MATRIX).");
-	printf("\nC. Advanced indicator (REGIONS, REPORTS)");
+	printf("\nC. Advanced indicator (REGIONS, REPORT)");
 	printf("\nD. Exit (QUIT)\n\n");
 	printf("COMMAND> ");
 }

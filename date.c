@@ -15,6 +15,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @brief This function will create a new date with the memory allocation type malloc
+ * If the allocation is unsuccessful the null value will be returned
+ * Else a new PtDate is returned
+ * 
+ * @param day 
+ * @param month 
+ * @param year 
+ * @return PtDate 
+ */
 PtDate dateCreate(
     unsigned int day,
     unsigned int month,
@@ -31,6 +41,14 @@ PtDate dateCreate(
     return date;
 }
 
+/**
+ * @brief This function will destroy a PtDate thereby freeing up memory
+ * If the date is null the null value will be returned
+ * Else a ok value will be returned
+ * 
+ * @param d 
+ * @return int 
+ */
 int dateDestroy(PtDate *d) {
 
     PtDate date = *d;
@@ -43,6 +61,11 @@ int dateDestroy(PtDate *d) {
     return DATE_OK;
 }
 
+/**
+ * @brief This function will print the date in the format ex:(22-03-1956)
+ * 
+ * @param d 
+ */
 void datePrint(PtDate d) {
 
     if(d == NULL) {
@@ -57,6 +80,15 @@ void datePrint(PtDate d) {
 
 }
 
+/**
+ * @brief This function will return the day from the given date
+ * If the date is null the null value will be returned
+ * Else the ok value will be returned
+ * 
+ * @param d 
+ * @param day 
+ * @return int 
+ */
 int dateDay(PtDate d, int *day) {
 
     if(d == NULL) return DATE_NULL;
@@ -66,6 +98,15 @@ int dateDay(PtDate d, int *day) {
     return DATE_OK;
 }
 
+/**
+ * @brief This function will return the month from the given date
+ * If the date is null the null value will be returned
+ * Else the ok value will be returned
+ * 
+ * @param d 
+ * @param month 
+ * @return int 
+ */
 int dateMonth(PtDate d, int *month) {
 
     if(d == NULL) return DATE_NULL;
@@ -75,6 +116,15 @@ int dateMonth(PtDate d, int *month) {
     return DATE_OK;
 }
 
+/**
+ * @brief This function will return the year from the given date
+ * If the date is null the null value will be returned
+ * Else the ok value will be returned
+ * 
+ * @param d 
+ * @param year 
+ * @return int 
+ */
 int dateYear(PtDate d, int *year) {
 
     if(d == NULL) return DATE_NULL;
@@ -84,6 +134,17 @@ int dateYear(PtDate d, int *year) {
     return DATE_OK;
 }
 
+/**
+ * @brief This function will check two dates
+ * First will check if the dates are valid
+ * Second will check if the first date is bigger or equal to the second date
+ * If applicable the null value will return
+ * Else the ok value will return
+ * 
+ * @param d1 
+ * @param d2 
+ * @return int 
+ */
 int dateCheck(PtDate d1, PtDate d2) {
     
     if(d1 == NULL) return DATE_NULL;
@@ -99,6 +160,17 @@ int dateCheck(PtDate d1, PtDate d2) {
     return DATE_OK;
 }
 
+/**
+ * @brief This function will receive two dates and give the difference in days between them
+ * If any of the dates are invalid the null value will return
+ * Else will convert the date difference to days
+ * Finally the ok valye will return
+ * 
+ * @param d1 
+ * @param d2 
+ * @param diff 
+ * @return int 
+ */
 int diffDates(PtDate d1, PtDate d2, int *diff) {
 
     if(d1 == NULL) return DATE_NULL;
@@ -143,6 +215,17 @@ int diffDates(PtDate d1, PtDate d2, int *diff) {
     return DATE_OK;
 }
 
+/**
+ * @brief This function will verify which one of the two is the biggest
+ * The two dates will be verified if they are valid
+ * Then a new date is created in order to save the biggest date
+ * Finally the ok value will return
+ * 
+ * @param d1 
+ * @param d2 
+ * @param date 
+ * @return int 
+ */
 int biggestDate(PtDate d1, PtDate d2, PtDate *date) {
 
     if(d1 == NULL) return DATE_NULL;

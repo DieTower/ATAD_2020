@@ -1,22 +1,21 @@
 >AVERAGE	
-Average Age for deceased patients:	74
-Average Age for released patients: 	42
-Average Age for isolated patients: 	47
+ Average Age for deceased patients: 74
+ Average Age for released patients: 42
+ Average Age for isolated patients: 46
 
 
->FOLLOW 1000000003
- Following Patient : ID:1000000003, SEX:male, AGE: 56,COUNTRY/REGION: Korea /Seul, STATE: released 
- contaminated by Patient : ID:2002000001 : does not exist record
+>FOLLOW 1000000004
+ Following Patient: ID: 1000000004, SEX: male, AGE: 29, COUNTRY/REGION: Korea/Seoul, STATE: released
+ contaminated by: unknown
  
 >FOLLOW 1000000174
- Following Patient : ID:1000000174, SEX:male, AGE: 27,COUNTRY/REGION: Korea /Seul, STATE: isolated 
- contaminated by Patient: ID:1000000124, SEX:male, AGE: 27,COUNTRY/REGION: Korea /Seul, STATE: isolated 
- contaminated by Unknown
+ Following Patient: ID: 1000000174, SEX: male, AGE: 27, COUNTRY/REGION: Korea/Seoul, STATE: isolated
+ contaminated by Patient: ID: 1000000124, SEX: male, AGE: 27, COUNTRY/REGION: Korea/Seoul, STATE: isolated
  
 >SEX
-Percentage of Females: 55%
-Percentage of Males: 42%
-Percentage of unknowns: 3%
+Percentage of female: 57.61%
+Percentage of male: 45.43%
+Percentage of unknown: 3.01%
 Total of patients: 3128
 
 >SHOW 1000000003
@@ -24,10 +23,10 @@ Total of patients: 3128
 ID:1000000003
 SEX: male
 AGE: 56
-COUNTRY/REGION: Korea /Seul
-INFECTION REASON: contact with patient
+COUNTRY/REGION: Korea/Seoul
+INFECTED REASON: contact with patient
 STATE: released
-NUMBER OF DAYS WITH ILLNESS: 20
+NUMBER OF DAYS WITH ILLNESS: 21
 
 
 >SHOW 1000000020
@@ -35,75 +34,102 @@ NUMBER OF DAYS WITH ILLNESS: 20
 ID:1000000020
 SEX: female
 AGE: 76
-COUNTRY/REGION: Korea /Seul
-INFECTION REASON: Seongdong-gu APT
+COUNTRY/REGION: Korea/Seoul
+INFECTED REASON: Seongdong-gu APT
 STATE: isolated
-NUMBER OF DAYS WITH ILLNESS: 34
+NUMBER OF DAYS WITH ILLNESS: 48
 
 
  
 >TOP5
 
-ID:1600000004
+ID: 1600000004
 SEX: female
 AGE: 62
-COUNTRY/REGION: Korea /Ulsan
-INFECTION REASON: contact with patient
+COUNTRY/REGION: Korea/Ulsan
+INFECTED REASON: contact with patient
+STATE: released
+NUMBER OF DAYS WITH ILLNESS: 42
+
+ID: 1706032800
+SEX: female
+AGE: 58
+COUNTRY/REGION: Korea/Gyeongsangbuk-do
+INFECTED REASON:
 STATE: released
 NUMBER OF DAYS WITH ILLNESS: 41
 
-ID:6001000097
-SEX: female
-AGE: 58
-COUNTRY/REGION: Korea /Gyeongsangbuk-do
-INFECTION REASON: unknown
-STATE: released
-NUMBER OF DAYS WITH ILLNESS: 40
-
-ID:6001000096
+ID: 1706032801
 SEX: female
 AGE: 35
-COUNTRY/REGION: Korea /Ulsan
-INFECTION REASON: unknown
+COUNTRY/REGION: Korea/Gyeongsangbuk-do
+INFECTED REASON:
 STATE: released
+NUMBER OF DAYS WITH ILLNESS: 41
+
+ID: 1706032823
+SEX: male
+AGE: 84
+COUNTRY/REGION: Korea/Gyeongsangbuk-do
+INFECTED REASON:
+STATE: isolated
 NUMBER OF DAYS WITH ILLNESS: 40
 
-ID:6001000082
-SEX: male
-AGE: 69
-COUNTRY/REGION: Korea /Gyeongsangbuk-do
-INFECTION REASON: unknown
-STATE: released
-NUMBER OF DAYS WITH ILLNESS: 39
-
-ID:6001000020
-SEX: male
-AGE: 62
-COUNTRY/REGION: Korea /Gyeongsangbuk-do
-INFECTION REASON: unknown
-STATE: released
-NUMBER OF DAYS WITH ILLNESS: 39
+ID: 1706032824
+SEX: female
+AGE: 80
+COUNTRY/REGION: Korea/Gyeongsangbuk-do
+INFECTED REASON:
+STATE: isolated
+NUMBER OF DAYS WITH ILLNESS: 40
 
 >OLDEST
 
-FEMALE:
-1- ID:6001000503, SEX:female, AGE: 104,COUNTRY/REGION: Korea /Gyeongsangbuk-do, STATE: isolated 
-
-MALE:
-1- ID:2000000379, SEX:male, AGE: 94,COUNTRY/REGION: Korea /Gyeonggi-do, STATE: isolated 
-2- ID:6008000044, SEX:male, AGE: 94,COUNTRY/REGION: Korea /Gyeongsangbuk-do, STATE: isolated 
+FEMALES:
+1 - ID: 1706033207, SEX: female, AGE: 104, COUNTRY/REGION: Korea/Gyeongsangbuk-do, STATE: isolated
+MALES:
+1 - ID: 2000000379, SEX: male, AGE: 94, COUNTRY/REGION: Korea/Gyeonggi-do, STATE: isolated
+2 - ID: 1713032748, SEX: male, AGE: 94, COUNTRY/REGION: Korea/Gyeongsangbuk-do, STATE: isolated
 
 >GROWTH 27/02/2020
 
-Date:<26/02/2020>
-Number of deads: 2:
-Number of infected: 125
+Date: 26-02-2020
+Number of dead: 3
+Number of isolated: 35
 
-Date:<27/02/2020>
-Number of deads: 3:
-Number of infected: 115
+Date: 27-02-2020
+Number of dead: 2
+Number of isolated: 46
 
-Rate of infections: -8%
-Rate of dead: 50%
+Rate of new infected: 0.31%
+Rate of new dead: -0.33%
 
+>MATRIX
 
+                Isolated                Deceased                Released
+[0-15]          55                      0                       35      
+[16-30]         419                     0                       311
+[31-45]         300                     2                       200
+[46-60]         440                     8                       277
+[61-75]         242                     17                      119
+[76...]         165                     31                      43
+
+>REGIONS
+
+Busan
+Chungcheongbuk-do
+Chungcheongnam-do
+Daegu
+Daejeon
+Gangwon-do
+Gwangju
+Gyeonggi-do
+Gyeongsangbuk-do
+Gyeongsangnam-do
+Incheon
+Jeju-do
+Jeollabuk-do
+Jeollanam-do
+Sejong
+Seoul
+Ulsan

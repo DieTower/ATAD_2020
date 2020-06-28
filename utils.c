@@ -16,7 +16,12 @@
 #include <string.h>
 #include <ctype.h>
 
-
+/**
+ * @brief This function will convert a string to lowercase
+ * 
+ * @param str1 
+ * @param str2 
+ */
 void lowerCase(char *str1, char *str2) {
     int size = (int)strlen(str1);
     
@@ -27,6 +32,12 @@ void lowerCase(char *str1, char *str2) {
     str2[size] = '\0';
 };
 
+/**
+ * @brief This function will convert a string to uppercase
+ * 
+ * @param str1 
+ * @param str2 
+ */
 void upperCase(char *str1, char *str2) {
     int size = (int)strlen(str1);
     
@@ -37,6 +48,14 @@ void upperCase(char *str1, char *str2) {
     str2[size] = '\0';
 };
 
+/**
+ * @brief This function will be used to split a string in order to obtain the desired information
+ * 
+ * @param string 
+ * @param nFields 
+ * @param delim 
+ * @return char** 
+ */
 char** split(char *string, int nFields, const char *delim) {
     
     char **tokens = (char**) malloc(sizeof(char*) * nFields);
@@ -48,24 +67,24 @@ char** split(char *string, int nFields, const char *delim) {
     tokens[index++] = &string[0];
 
     for(int i=0; i < len; i++) {
-        
         if(string[i] == delim[0]) {
-
             string[i] = '\0';
-
             if(i < len-1) {
-
                 tokens[index++] = &string[i] + 1;
-
             }
-
         }
-
     }
 
     return tokens;
 };
 
+/**
+ * @brief This function will count the number of chars and compare to the given char
+ * 
+ * @param str 
+ * @param c 
+ * @return int 
+ */
 int strCountChar(char *str, const char *c) {
 
     int count = 0;
@@ -79,6 +98,13 @@ int strCountChar(char *str, const char *c) {
     return count;
 }
 
+/**
+ * @brief This function will unite two splited strings
+ * 
+ * @param str 
+ * @param delim 
+ * @param res 
+ */
 void splitJoin(char *str, const char *delim, char *res) {
     
     int nFields =  strCountChar(str, delim);
@@ -95,28 +121,13 @@ void splitJoin(char *str, const char *delim, char *res) {
     free(tokens);
 }
 
-/*MapKey stringCodeCreate(char str[100]) {
-    MapKey key = (MapKey) calloc(1, sizeof(char[100]));
-
-    if(key == NULL) return NULL;
-
-    strcpy(key, str);
-
-    return key;
-}
-
-int keyDestroy(MapKey *c) {
-    
-    MapKey key = *c;
-
-    if(key == NULL) return REGION_NULL;
-
-    free(key);
-    *c = NULL;
-
-    return REGION_OK;
-}*/
-
+/**
+ * @brief This function will import the regions csv file
+ * For that the received data will be formatted in a type that the c language can understand and do data manipulation
+ * 
+ * @param filename 
+ * @param mapRegion 
+ */
 void importRegionsFromFile(char * filename, PtMap *mapRegion) {
     FILE *f = NULL;
 
@@ -189,6 +200,14 @@ void importRegionsFromFile(char * filename, PtMap *mapRegion) {
 
 }
 
+/**
+ * @brief This function will import a given patients csv file
+ * For that the received data will be formatted in a type that the c language can understand and do data manipulation
+ * The data will be saved inside the given PtList
+ * 
+ * @param filename 
+ * @param listPatient 
+ */
 void importPatientsFromFile(char * filename, PtList *listPatient) {
     FILE *f = NULL;
 
@@ -318,6 +337,14 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
     fclose(f);
 }
 
+/**
+ * @brief This function will get the region from a given patient
+ * 
+ * @param m 
+ * @param p 
+ * @param r 
+ * @return int 
+ */
 int regionFromPatient(PtMap m, PtPatient p, PtRegion *r) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -332,7 +359,12 @@ int regionFromPatient(PtMap m, PtPatient p, PtRegion *r) {
     return PATIENT_OK;
 }
 
-// Returns the most distant date in the file patients
+/**
+ * @brief This function will return the most distant date in the file patients
+ * 
+ * @param listPatient 
+ * @param date 
+ */
 void maxDateInFile(PtList listPatient, PtDate *date) {
 
     int size = 0;
@@ -361,6 +393,12 @@ void maxDateInFile(PtList listPatient, PtDate *date) {
 
 // ----- COMMAND Functions -----
 
+/**
+ * @brief This function will count all patients from each status and give an average of each
+ * 
+ * @param listPatient 
+ * @param status 
+ */
 void patientsAVG(PtList listPatient, char *status) {
     
     int sum = 0;
@@ -387,11 +425,17 @@ void patientsAVG(PtList listPatient, char *status) {
         }
     }
 
-    float avg = (float)sum/count;
+    int avg = sum/count;
 
-    printf("Average Age for %s patients: %.2f\n", status, avg);
+    printf("Average Age for %s patients: %d\n", status, avg);
 }
 
+/**
+ * @brief This function will receive a patient's id and print the information about them.
+ * 
+ * @param listPatient 
+ * @param id 
+ */
 void patientsFOLLOW(PtList listPatient, long int id) {
 
     int size = 0;
@@ -452,6 +496,25 @@ void patientsFOLLOW(PtList listPatient, long int id) {
     }
 }
 
+/**
+ * @brief This function will count all the patients inside the given PtList
+ * 
+ * @param listPatient 
+ * @return int 
+ */
+int getCountPatients(PtList listPatient){
+    int size = 0;
+    listSize(listPatient, &size);
+
+    return size;
+}
+
+/**
+ * @brief This function will count all patients and return a percentage of patients of each sex.
+ * 
+ * @param listPatient 
+ * @param sex 
+ */
 void patientsSEX(PtList listPatient, char *sex) {
 
     int size = 0;
@@ -478,6 +541,12 @@ void patientsSEX(PtList listPatient, char *sex) {
     printf("Percentage of %s: %.2f%%\n", sex, percentage);
 }
 
+/**
+ * @brief This function will print the information of the given patient
+ * 
+ * @param listPatient 
+ * @param id 
+ */
 void patientsSHOW(PtList listPatient, long int id) {
 
     int size = 0;
@@ -533,6 +602,11 @@ void patientsSHOW(PtList listPatient, long int id) {
     printf("NUMBER OF DAYS WITH ILLNESS: %s\n", buffer);
 }
 
+/**
+ * @brief This function will return a list with the top 5 patients that took longer to recover
+ * 
+ * @param listPatient 
+ */
 void patientsTOP5(PtList listPatient){
     
     int size = 0;
@@ -596,6 +670,11 @@ void patientsTOP5(PtList listPatient){
     }
 }
 
+/**
+ * @brief This function will return the oldest patient of each sex of the given list
+ * 
+ * @param listPatient 
+ */
 void patientsOLDEST(PtList listPatient){
 
     int size = 0;
@@ -667,6 +746,12 @@ void patientsOLDEST(PtList listPatient){
     
 }
 
+/**
+ * @brief This function will return the date before the given date
+ * 
+ * @param date 
+ * @return PtDate 
+ */
 PtDate getDayBefore(PtDate date){
 
     int dateDayBefore = 0, dateMonthBefore = 0, dateYearBefore = 0;
@@ -704,6 +789,12 @@ PtDate getDayBefore(PtDate date){
     return dayBefore;
 }
 
+/**
+ * @brief This function will print the growth of infection between two dates
+ * 
+ * @param listPatient 
+ * @param date 
+ */
 void patientsGROWTH(PtList listPatient, PtDate date){
 
     int size = 0;
@@ -780,11 +871,16 @@ void patientsGROWTH(PtList listPatient, PtDate date){
         printf("Number of isolated: %d\n", numIsolatedDay);
 
         printf("\n");
-        printf("Rate of new infected: %.2lf\n", rateNewInfected);
-        printf("Rate of new dead: %.2lf\n", rateNewDead);
+        printf("Rate of new infected: %.2lf%%\n", rateNewInfected);
+        printf("Rate of new dead: %.2lf%%\n", rateNewDead);
     }
 }
 
+/**
+ * @brief This function will return a matrix that will show the number of patients of some certains group ages and the status
+ * 
+ * @param listPatient 
+ */
 void patientsMATRIX(PtList listPatient){
     
     int size = 0;
@@ -908,6 +1004,12 @@ void patientsMATRIX(PtList listPatient){
     }
 }
 
+/**
+ * @brief This function will return the regions with infected
+ * 
+ * @param listPatient 
+ * @param mapRegion 
+ */
 void patientsREGIONS(PtList listPatient, PtMap mapRegion){
 
     int size = 0;
@@ -966,47 +1068,4 @@ void patientsREGIONS(PtList listPatient, PtMap mapRegion){
     }
     
     free(keys);
-}
-
-void patientsREPORT(PtList listPatient, PtMap mapRegion){
-
-    int size = 0;
-    listSize(listPatient, &size);
-
-    ListElem patients[size];
-    ListElem patient;
-    PtMap countries = mapCreate(10);
-    char strRegion[50] = " ";
-    
-    char **regions = (char**) malloc(sizeof(char*) * size);
-    int count = 0;
-
-    for(int i = 0; i < size; i++){
-        listGet(listPatient, i, &patient);
-        patientRegion(patient, strRegion);
-
-        patients[i] = patient;
-
-        regions[count] = (char*) malloc(sizeof(char) * 250);
-        strcpy(regions[count], strRegion);
-        count++;
-    }
-
-    
-    // for(int i = 0; i < size; i++){
-    //     patientCountry();
-    // }
-
-    FILE *f = NULL;
-
-    f = fopen("report.txt", "a");
-
-    if(f == NULL) {
-        // printf("An error ocurred... It wad not possible to open the file %s ...\n", filename);
-        printf("Report not created ");
-        return;
-    }
-
-    
-
 }

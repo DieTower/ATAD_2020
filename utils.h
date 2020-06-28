@@ -102,6 +102,14 @@ void patientsAVG(PtList listPatient, char *status);
 void patientsFOLLOW(PtList listPatient, long int id);
 
 /**
+ * @brief Get the total of patients
+ * 
+ * @param listPatient 
+ * @return int 
+ */
+int getCountPatients(PtList listPatient);
+
+/**
  * @brief Show percent of patients by sex
  * 
  * @param listPatient 
