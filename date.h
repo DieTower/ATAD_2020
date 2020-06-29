@@ -20,7 +20,9 @@ typedef struct date {
 } Date;
 
 /**
- * @brief Create a date
+ * @brief This function will create a new date with the memory allocation type malloc
+ * If the allocation is unsuccessful the null value will be returned
+ * Else a new PtDate is returned
  * 
  * @param day 
  * @param month 
@@ -34,7 +36,9 @@ PtDate dateCreate(
 );
 
 /**
- * @brief Destroy a date
+ * @brief This function will destroy a PtDate thereby freeing up memory
+ * If the date is null the null value will be returned
+ * Else a ok value will be returned
  * 
  * @param d 
  * @return int 
@@ -42,23 +46,27 @@ PtDate dateCreate(
 int dateDestroy(PtDate *d);
 
 /**
- * @brief Print a date
+ * @brief This function will print the date in the format ex:(22-03-1956)
  * 
  * @param d 
  */
 void datePrint(PtDate d);
 
 /**
- * @brief Return a day from PtDate
+ * @brief This function will return the day from the given date
+ * If the date is null the null value will be returned
+ * Else the ok value will be returned
  * 
- * @param d [in] 
+ * @param d [in]
  * @param day [out]
  * @return int 
  */
 int dateDay(PtDate d, int *day);
 
 /**
- * @brief Return a month from PtDate
+ * @brief This function will return the month from the given date
+ * If the date is null the null value will be returned
+ * Else the ok value will be returned
  * 
  * @param d [in]
  * @param month [out]
@@ -67,7 +75,9 @@ int dateDay(PtDate d, int *day);
 int dateMonth(PtDate d, int *month);
 
 /**
- * @brief Return a year from PtDate
+ * @brief This function will return the year from the given date
+ * If the date is null the null value will be returned
+ * Else the ok value will be returned
  * 
  * @param d [in]
  * @param year [out]
@@ -76,7 +86,10 @@ int dateMonth(PtDate d, int *month);
 int dateYear(PtDate d, int *year);
 
 /**
- * @brief Return the difference in days between two dates
+ * @brief This function will receive two dates and give the difference in days between them
+ * If any of the dates are invalid the null value will return
+ * Else will convert the date difference to days
+ * Finally the ok valye will return
  * 
  * @param d1 [in]
  * @param d2 [in]
@@ -86,7 +99,10 @@ int dateYear(PtDate d, int *year);
 int diffDates(PtDate d1, PtDate d2, int *diff);
 
 /**
- * @brief Find the biggest date between two dates
+ * @brief This function will verify which one of the two is the biggest
+ * The two dates will be verified if they are valid
+ * Then a new date is created in order to save the biggest date
+ * Finally the ok value will return
  * 
  * @param d1 [in]
  * @param d2 [in]

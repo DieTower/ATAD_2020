@@ -16,12 +16,7 @@
 #include <string.h>
 #include <ctype.h>
 
-/**
- * @brief This function will convert a string to lowercase
- * 
- * @param str1 
- * @param str2 
- */
+
 void lowerCase(char *str1, char *str2) {
     int size = (int)strlen(str1);
     
@@ -32,12 +27,6 @@ void lowerCase(char *str1, char *str2) {
     str2[size] = '\0';
 };
 
-/**
- * @brief This function will convert a string to uppercase
- * 
- * @param str1 
- * @param str2 
- */
 void upperCase(char *str1, char *str2) {
     int size = (int)strlen(str1);
     
@@ -48,14 +37,6 @@ void upperCase(char *str1, char *str2) {
     str2[size] = '\0';
 };
 
-/**
- * @brief This function will be used to split a string in order to obtain the desired information
- * 
- * @param string 
- * @param nFields 
- * @param delim 
- * @return char** 
- */
 char** split(char *string, int nFields, const char *delim) {
     
     char **tokens = (char**) malloc(sizeof(char*) * nFields);
@@ -78,13 +59,6 @@ char** split(char *string, int nFields, const char *delim) {
     return tokens;
 };
 
-/**
- * @brief This function will count the number of chars and compare to the given char
- * 
- * @param str 
- * @param c 
- * @return int 
- */
 int strCountChar(char *str, const char *c) {
 
     int count = 0;
@@ -98,13 +72,6 @@ int strCountChar(char *str, const char *c) {
     return count;
 }
 
-/**
- * @brief This function will unite two splited strings
- * 
- * @param str 
- * @param delim 
- * @param res 
- */
 void splitJoin(char *str, const char *delim, char *res) {
     
     int nFields =  strCountChar(str, delim);
@@ -337,14 +304,6 @@ void importPatientsFromFile(char * filename, PtList *listPatient) {
     fclose(f);
 }
 
-/**
- * @brief This function will get the region from a given patient
- * 
- * @param m 
- * @param p 
- * @param r 
- * @return int 
- */
 int regionFromPatient(PtMap m, PtPatient p, PtRegion *r) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -359,12 +318,6 @@ int regionFromPatient(PtMap m, PtPatient p, PtRegion *r) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will return the most distant date in the file patients
- * 
- * @param listPatient 
- * @param date 
- */
 void maxDateInFile(PtList listPatient, PtDate *date) {
 
     int size = 0;
@@ -393,12 +346,6 @@ void maxDateInFile(PtList listPatient, PtDate *date) {
 
 // ----- COMMAND Functions -----
 
-/**
- * @brief This function will count all patients from each status and give an average of each
- * 
- * @param listPatient 
- * @param status 
- */
 void patientsAVG(PtList listPatient, char *status) {
     
     int sum = 0;
@@ -430,12 +377,6 @@ void patientsAVG(PtList listPatient, char *status) {
     printf("Average Age for %s patients: %d\n", status, avg);
 }
 
-/**
- * @brief This function will receive a patient's id and print the information about them.
- * 
- * @param listPatient 
- * @param id 
- */
 void patientsFOLLOW(PtList listPatient, long int id) {
 
     int size = 0;
@@ -496,12 +437,6 @@ void patientsFOLLOW(PtList listPatient, long int id) {
     }
 }
 
-/**
- * @brief This function will count all the patients inside the given PtList
- * 
- * @param listPatient 
- * @return int 
- */
 int getCountPatients(PtList listPatient){
     int size = 0;
     listSize(listPatient, &size);
@@ -509,12 +444,6 @@ int getCountPatients(PtList listPatient){
     return size;
 }
 
-/**
- * @brief This function will count all patients and return a percentage of patients of each sex.
- * 
- * @param listPatient 
- * @param sex 
- */
 void patientsSEX(PtList listPatient, char *sex) {
 
     int size = 0;
@@ -541,12 +470,6 @@ void patientsSEX(PtList listPatient, char *sex) {
     printf("Percentage of %s: %.2f%%\n", sex, percentage);
 }
 
-/**
- * @brief This function will print the information of the given patient
- * 
- * @param listPatient 
- * @param id 
- */
 void patientsSHOW(PtList listPatient, long int id) {
 
     int size = 0;
@@ -602,11 +525,6 @@ void patientsSHOW(PtList listPatient, long int id) {
     printf("NUMBER OF DAYS WITH ILLNESS: %s\n", buffer);
 }
 
-/**
- * @brief This function will return a list with the top 5 patients that took longer to recover
- * 
- * @param listPatient 
- */
 void patientsTOP5(PtList listPatient){
     
     int size = 0;
@@ -670,11 +588,6 @@ void patientsTOP5(PtList listPatient){
     }
 }
 
-/**
- * @brief This function will return the oldest patient of each sex of the given list
- * 
- * @param listPatient 
- */
 void patientsOLDEST(PtList listPatient){
 
     int size = 0;
@@ -746,12 +659,6 @@ void patientsOLDEST(PtList listPatient){
     
 }
 
-/**
- * @brief This function will return the date before the given date
- * 
- * @param date 
- * @return PtDate 
- */
 PtDate getDayBefore(PtDate date){
 
     int dateDayBefore = 0, dateMonthBefore = 0, dateYearBefore = 0;
@@ -789,12 +696,6 @@ PtDate getDayBefore(PtDate date){
     return dayBefore;
 }
 
-/**
- * @brief This function will print the growth of infection between two dates
- * 
- * @param listPatient 
- * @param date 
- */
 void patientsGROWTH(PtList listPatient, PtDate date){
 
     int size = 0;
@@ -876,11 +777,6 @@ void patientsGROWTH(PtList listPatient, PtDate date){
     }
 }
 
-/**
- * @brief This function will return a matrix that will show the number of patients of some certains group ages and the status
- * 
- * @param listPatient 
- */
 void patientsMATRIX(PtList listPatient){
     
     int size = 0;
@@ -1004,12 +900,6 @@ void patientsMATRIX(PtList listPatient){
     }
 }
 
-/**
- * @brief This function will return the regions with infected
- * 
- * @param listPatient 
- * @param mapRegion 
- */
 void patientsREGIONS(PtList listPatient, PtMap mapRegion){
 
     int size = 0;

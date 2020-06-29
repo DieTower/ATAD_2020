@@ -16,7 +16,8 @@ struct region;
 typedef struct region* PtRegion;
 
 /**
- * @brief Create a region
+ * @brief This function will create a PtRegion by allocation memory with malloc
+ * If the allocation is successfull the values will be empty
  * 
  * @param name 
  * @param capital 
@@ -32,7 +33,7 @@ PtRegion regionCreate(
 );
 
 /**
- * @brief Destroy a region
+ * @brief This function will destroy a given PtRegion by freeing memory
  * 
  * @param r 
  * @return int 
@@ -40,32 +41,32 @@ PtRegion regionCreate(
 int regionDestroy(PtRegion *r);
 
 /**
- * @brief Print a region
+ * @brief This function will print a given region
  * 
  * @param r 
  */
 void regionPrint(PtRegion r);
 
 /**
- * @brief Return a name from region
+ * @brief This function will give a region name
  * 
- * @param r [in]
- * @param name [out]
+ * @param r 
+ * @param name 
  * @return int 
  */
 int regionName(PtRegion r, char *name);
 
 /**
- * @brief Return a capital from region
+ * @brief This function will give a region capital
  * 
- * @param r [in]
- * @param capital [out]
+ * @param r 
+ * @param capital 
  * @return int 
  */
 int regionCapital(PtRegion r, char *capital);
 
 /**
- * @brief Return a population from region
+ * @brief This function will give a region population
  * 
  * @param r [in]
  * @param population [out]
@@ -74,7 +75,7 @@ int regionCapital(PtRegion r, char *capital);
 int regionPopulation(PtRegion r, int *population);
 
 /**
- * @brief Return a area from region
+ * @brief This function will give a region area
  * 
  * @param r [in]
  * @param area [out]

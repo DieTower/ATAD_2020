@@ -11,23 +11,23 @@
 #include "map.h"
 
 /**
- * @brief Put every char in one char array in lowercase
+ * @brief This function will convert a string to lowercase
  * 
- * @param str1[in]
- * @param str2[out]
+ * @param str1 [in]
+ * @param str2 [out]
  */
 void lowerCase(char *str1, char *str2);
 
 /**
- * @brief Put every char in one char array in uppercase
+ * @brief This function will convert a string to uppercase
  * 
- * @param str1[in]
- * @param str2[out]
+ * @param str1 [in]
+ * @param str2 [out]
  */
 void upperCase(char *str1, char *str2);
 
 /**
- * @brief Split a "string"(char array)
+ * @brief This function will be used to split a string in order to obtain the desired information
  * 
  * @param string 
  * @param nFields 
@@ -37,7 +37,7 @@ void upperCase(char *str1, char *str2);
 char** split(char *string, int nFields, const char *delim);
 
 /**
- * @brief Count how many caracters in one "string" are equal to the char inserted
+ * @brief This function will count the number of chars and compare to the given char
  * 
  * @param str 
  * @param c 
@@ -46,79 +46,67 @@ char** split(char *string, int nFields, const char *delim);
 int strCountChar(char *str, const char *c);
 
 /**
- * @brief Split one "string" and join the values splited in a new one
+ * @brief This function will unite two splited strings
  * 
  * @param str 
  * @param delim 
+ * @param res 
  */
 void splitJoin(char *str, const char *delim, char *res);
 
 /**
- * @brief Create a Mapkey allocation
- * 
- * @param str 
- * @return MapKey 
- */
-//MapKey keyCreate(char str[100]);
-
-/**
- * @brief Destroy a Mapkey allocated
- * 
- * @param c 
- * @return int 
- */
-//int keyDestroy(MapKey *c);
-
-/**
- * @brief Populate a patient list 
- * 
- * @param filename 
- * @param listPatient 
- */
-void importPatientsFromFile(char * filename, PtList *listPatient);
-
-/**
- * @brief Populate a region map
+ * @brief This function will import the regions csv file
+ * For that the received data will be formatted in a type that the c language can understand and do data manipulation
  * 
  * @param filename 
  * @param mapRegion 
  */
+void importPatientsFromFile(char * filename, PtList *listPatient);
+
+/**
+ * @brief This function will import a given patients csv file
+ * For that the received data will be formatted in a type that the c language can understand and do data manipulation
+ * The data will be saved inside the given PtList
+ * 
+ * @param filename 
+ * @param listPatient 
+ */
 void importRegionsFromFile(char * filename, PtMap *mapRegion);
 
 /**
- * @brief Finds the number of patients infected imported
+ * @brief This function will count all patients from each status and give an average of each
  * 
  * @param listPatient [in]
- * @param status [in]
+ * @param status [out]
  */
 void patientsAVG(PtList listPatient, char *status);
 
 /**
- * @brief Show every chain of infection by one patient
+ * @brief This function will receive a patient's id and print the information about them.
  * 
- * @param listPatient 
- * @param id 
+ * @param listPatient [in]
+ * @param id [out] 
  */
 void patientsFOLLOW(PtList listPatient, long int id);
 
 /**
- * @brief Get the total of patients
+ * @brief This function will count all the patients inside the given PtList
  * 
- * @param listPatient 
+ * @param listPatient
  * @return int 
  */
 int getCountPatients(PtList listPatient);
 
 /**
- * @brief Show percent of patients by sex
+ * @brief This function will count all patients and return a percentage of patients of each sex.
  * 
- * @param listPatient 
- * @param sex 
+ * @param listPatient [in]
+ * @param sex [out]
  */
 void patientsSEX(PtList listPatient, char *sex);
 
 /**
- * @brief Insert an id and print a patient with the given id
+ * @brief This function will print the information of the given patient
  * 
  * @param listPatient 
  * @param id 
@@ -126,21 +114,21 @@ void patientsSEX(PtList listPatient, char *sex);
 void patientsSHOW(PtList listPatient, long int id);
 
 /**
- * @brief Receives a list of patients and returns the 5 who took the longest to recover
+ * @brief This function will return a list with the top 5 patients that took longer to recover
  * 
  * @param listPatient 
  */
 void patientsTOP5(PtList listPatient);
 
 /**
- * @brief Receives a list of patients and shows the oldest of each sex
+ * @brief This function will return the oldest patient of each sex of the given list
  * 
  * @param listPatient 
  */
 void patientsOLDEST(PtList listPatient);
 
 /**
- * @brief Receives a list of patients and a specific date in order to show the growth difference between that day and the day before.
+ * @brief This function will print the growth of infection between two dates
  * 
  * @param listPatient 
  * @param date 
@@ -148,14 +136,14 @@ void patientsOLDEST(PtList listPatient);
 void patientsGROWTH(PtList listPatient, PtDate date);
 
 /**
- * @brief Receives a list of patients and returns a matrix with the information about the total of isolated, deceased and released.
+ * @brief This function will return a matrix that will show the number of patients of some certains group ages and the status
  * 
  * @param listPatient 
  */
 void patientsMATRIX(PtList listPatient);
 
 /**
- * @brief Receives a list of patients and a map of regions, order the regions of the infected in order asc..
+ * @brief This function will return the regions with infected
  * 
  * @param listPatient 
  * @param mapRegion 

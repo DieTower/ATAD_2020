@@ -29,24 +29,6 @@ typedef struct patient {
     char status[10]; // {"isolated","released","deceased"}
 } Patient;
 
-/**
- * @brief This function will create a PtPatient type by allocation memory with calloc
- * If the allocation is successful all the values will be empty
- * Finally the new PtPatient will return
- * 
- * @param id 
- * @param sex 
- * @param birthYear 
- * @param country 
- * @param region 
- * @param infectionReason 
- * @param infectedBy 
- * @param confirmedDate 
- * @param releasedDate 
- * @param deceasedDate 
- * @param status 
- * @return PtPatient 
- */
 PtPatient patientCreate(
     long int id,
     char sex[6],
@@ -84,12 +66,6 @@ PtPatient patientCreate(
     return patient;
 }
 
-/**
- * @brief This function will destroy a given PtPatient but first will verify if it's valid and finally the function will free the used memory.
- * 
- * @param p 
- * @return int 
- */
 int patientDestroy(PtPatient *p) {
 
     if(*p == NULL) return PATIENT_NULL;
@@ -108,11 +84,6 @@ int patientDestroy(PtPatient *p) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will print a patient with all the necessary info
- * 
- * @param p 
- */
 void patientPrint(PtPatient p) {
 
     if(p == NULL) {
@@ -130,13 +101,6 @@ void patientPrint(PtPatient p) {
 
 }
 
-/**
- * @brief This function will print a patient with a basic print type 
- * First all the values will be verified to see if there are any unknown values to implement in the print
- * 
- * @param p 
- * @param direction 
- */
 void patientDirectedPrint(PtPatient p, char direction) {
 
     // Check if birth day exist and set the age
@@ -174,13 +138,6 @@ void patientDirectedPrint(PtPatient p, char direction) {
     }
 }
 
-/**
- * @brief This function will give a patient's id but first will verify if the patient is valid
- * 
- * @param p 
- * @param id 
- * @return int 
- */
 int patientId(PtPatient p, long int *id) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -190,13 +147,6 @@ int patientId(PtPatient p, long int *id) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's sex but first will verify if the patient is valid
- * 
- * @param p 
- * @param sex 
- * @return int 
- */
 int patientSex(PtPatient p, char *sex) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -206,13 +156,6 @@ int patientSex(PtPatient p, char *sex) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's birth year but first will verify if the patient is valid
- * 
- * @param p 
- * @param birthYear 
- * @return int 
- */
 int patientBithYear(PtPatient p, int *birthYear) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -222,13 +165,6 @@ int patientBithYear(PtPatient p, int *birthYear) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's country but first will verify if the patient is valid
- * 
- * @param p 
- * @param country 
- * @return int 
- */
 int patientCountry(PtPatient p, char *country) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -238,13 +174,6 @@ int patientCountry(PtPatient p, char *country) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's region but first will verify if the patient is valid
- * 
- * @param p 
- * @param region 
- * @return int 
- */
 int patientRegion(PtPatient p, char *region) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -254,13 +183,6 @@ int patientRegion(PtPatient p, char *region) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's infection reason but first will verify if the patient is valid
- * 
- * @param p 
- * @param infectionReason 
- * @return int 
- */
 int patientInfectionReason(PtPatient p, char *infectionReason) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -270,13 +192,6 @@ int patientInfectionReason(PtPatient p, char *infectionReason) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's infection cause but first will verify if the patient is valid
- * 
- * @param p 
- * @param infectedBy 
- * @return int 
- */
 int patientInfectedBy(PtPatient p, long int *infectedBy) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -286,13 +201,6 @@ int patientInfectedBy(PtPatient p, long int *infectedBy) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's infection confirmed date but first will verify if the patient is valid
- * 
- * @param p 
- * @param confirmedDate 
- * @return int 
- */
 int patientConfirmedDate(PtPatient p, PtDate *confirmedDate) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -302,13 +210,6 @@ int patientConfirmedDate(PtPatient p, PtDate *confirmedDate) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's released date but first will verify if the patient is valid
- * 
- * @param p 
- * @param releasedDate 
- * @return int 
- */
 int patientReleasedDate(PtPatient p, PtDate *releasedDate) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -318,13 +219,6 @@ int patientReleasedDate(PtPatient p, PtDate *releasedDate) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's deceased date but first will verify if the patient is valid
- * 
- * @param p 
- * @param deceasedDate 
- * @return int 
- */
 int patientDeceasedDate(PtPatient p, PtDate *deceasedDate) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -334,13 +228,6 @@ int patientDeceasedDate(PtPatient p, PtDate *deceasedDate) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's status but first will verify if the patient is valid
- * 
- * @param p 
- * @param status 
- * @return int 
- */
 int patientStatus(PtPatient p, char *status) {
 
     if(p == NULL) return PATIENT_NULL;
@@ -350,13 +237,6 @@ int patientStatus(PtPatient p, char *status) {
     return PATIENT_OK;
 }
 
-/**
- * @brief This function will give a patient's age but first will verify if the patient is valid
- * 
- * @param p 
- * @param age 
- * @return int 
- */
 int patientAge(PtPatient p, int *age) {
 
     if(p == NULL) return PATIENT_NULL;

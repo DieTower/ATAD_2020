@@ -17,7 +17,7 @@ typedef struct stringCode{
 } StringCode;
 
 /**
- * @brief Create a StringCode
+ * @brief This function will create a string code and return it
  * 
  * @param str 
  * @return StringCode 
@@ -25,7 +25,8 @@ typedef struct stringCode{
 StringCode stringCodeCreate(char *str);
 
 /**
- * @brief Print a StringCode
+ * @brief This function will print a given string code
  * 
+ * @param strCode 
  */
-void stringCodePrint(StringCode);
+void stringCodePrint(StringCode strCode);
